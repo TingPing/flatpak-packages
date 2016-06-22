@@ -50,6 +50,7 @@
       "config-opts": [
         "--disable-gtk-doc", "--disable-examples", "--with-plugins=mpg123"
       ],
+      "cleanup": [ "/share" ],
       "build-options" : {
         "arch" : {
           "i386" : { "config-opts" : [ "--build=i586-unknown-linux-gnu" ] },
@@ -64,7 +65,7 @@
       "modules": [
         {
           "name": "mpg123",
-          "cleanup": [ "/bin", "/include", "/lib/pkgconfig" ],
+          "cleanup": [ "/bin", "/include", "/lib/pkgconfig", "/share" ],
           "sources": [{
             "type": "archive",
             "url": "http://downloads.sourceforge.net/sourceforge/mpg123/mpg123-1.23.4.tar.bz2",
@@ -99,7 +100,7 @@
       }],
       "modules": [{
         "name": "faad",
-        "cleanup": [ "/bin", "/include" ],
+        "cleanup": [ "/bin", "/include", "/share" ],
         "config-opts": [ "--disable-static" ],
         "no-autogen": true,
         "sources": [
