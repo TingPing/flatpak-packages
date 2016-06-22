@@ -1,0 +1,143 @@
+{
+  "app-id": "io.github.Pithos",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "3.20",
+  "sdk": "org.gnome.Sdk",
+  "rename-desktop-file": "pithos.desktop",
+  "rename-appdata-file": "pithos.appdata.xml",
+  "rename-icon": "pithos",
+  "copy-icon": true,
+  "command": "pithos",
+  "finish-args": [
+    "--share=ipc",
+    "--share=network",
+    "--socket=x11",
+    "--socket=wayland",
+    "--socket=pulseaudio",
+
+    "--env=SSL_CERT_DIR=/etc/ssl/certs",
+    "--env=SSL_CERT_FILE=/etc/ssl/cert.pem",
+    "--filesystem=/etc/ssl:ro",
+    "--filesystem=/etc/ca-certificates:ro",
+
+    "--env=GST_PLUGIN_PATH_1_0=/app/lib/gstreamer-1.0",
+    "--talk-name=org.gtk.vfs",
+    "--talk-name=org.gtk.vfs.*",
+
+    "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
+    "--filesystem=xdg-run/dconf",
+    "--filesystem=~/.config/dconf:ro",
+    "--talk-name=ca.desrt.dconf",
+    "--talk-name=org.freedesktop.secrets",
+
+    "--talk-name=org.freedesktop.Notifications",
+
+    "--talk-name=org.gnome.SettingsDaemon",
+    "--talk-name=org.mate.SettingsDaemon",
+
+    "--talk-name=org.gnome.ScreenSaver",
+    "--talk-name=org.cinnamon.ScreenSaver",
+    "--talk-name=org.freedesktop.ScreenSaver",
+    "--talk-name=com.canonical.Unity.Session",
+
+    "--own-name=org.mpris.MediaPlayer2.pithos",
+    "--own-name=net.kevinmehall.Pithos",
+    "--filesystem=/tmp"
+  ],
+  "modules": [
+    {
+      "name": "gstreamer-plugins-ugly",
+      "config-opts": [
+        "--disable-gtk-doc", "--disable-examples", "--with-plugins=mpg123"
+      ],
+      "build-options" : {
+        "arch" : {
+          "i386" : { "config-opts" : [ "--build=i586-unknown-linux-gnu" ] },
+          "arm" : { "config-opts" : [ "--build=arm-unknown-linux-gnueabi" ] }
+        }
+      },
+      "sources": [{
+        "type": "archive",
+        "url": "http://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.8.2.tar.xz",
+        "sha256": "9c5b33a2a98fc1d6d6c99a1b536b1fb2de45f53cc8bf8ab85a8b8141fed1a8ac"
+      }],
+      "modules": [
+        {
+          "name": "mpg123",
+          "cleanup": [ "/bin", "/include", "/lib/pkgconfig" ],
+          "sources": [{
+            "type": "archive",
+            "url": "http://downloads.sourceforge.net/sourceforge/mpg123/mpg123-1.23.4.tar.bz2",
+            "sha256": "3495e678dec9a60f29cbcd4fc698abc4c811ec60d1276e744f7a10ac35023b48"
+          }]
+        }
+      ]
+    },
+    {
+      "name": "gstreamer-plugins-bad",
+      "config-opts": [
+        "--disable-gtk-doc", "--disable-introspection", "--disable-examples",
+        "--disable-bz2", "--disable-curl", "--disable-dash", "--disable-webp",
+        "--disable-decklink", "--disable-dtls", "--disable-dvb", "--disable-fbdev",
+        "--disable-gl", "--disable-gtk3", "--disable-hls", "--disable-rsvg",
+        "--disable-sndfile", "--disable-shm", "--disable-smoothstreaming",
+        "--disable-vcd", "--disable-vdpau", "--disable-wayland", "--with-plugins=faad"
+      ],
+      "build-options" : {
+        "arch" : {
+          "i386" : { "config-opts" : [ "--build=i586-unknown-linux-gnu" ] },
+          "arm" : { "config-opts" : [ "--build=arm-unknown-linux-gnueabi" ] }
+        }
+      },
+      "cleanup": [
+        "/include", "/share", "/lib/pkgconfig", "/lib/gstreamer-1.0/include", "/lib/libgst*"
+      ],
+      "sources": [{
+        "type": "archive",
+        "url": "http://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-1.8.0.tar.xz",
+        "sha256": "116376dd1085082422e0b21b0ecd3d1cb345c469c58e32463167d4675f4ca90e"
+      }],
+      "modules": [{
+        "name": "faad",
+        "cleanup": [ "/bin", "/include" ],
+        "config-opts": [ "--disable-static" ],
+        "no-autogen": true,
+        "sources": [
+          {
+            "type": "archive",
+            "url": "http://downloads.sourceforge.net/sourceforge/faac/faad2-2.7.tar.bz2",
+            "sha256": "14561b5d6bc457e825bfd3921ae50a6648f377a9396eaf16d4b057b39a3f63b5"
+          },
+          {
+            "type": "patch",
+            "path": "libmp4ff-shared-lib.patch",
+            "sha256": "e0aaefeb20ebfec2f09e88a190f78e5744d9f1c71fe41977db8e4f29b5b88022"
+          },
+          {
+            "type": "shell",
+            "commands": [ "autoreconf --force --install" ]
+          }
+        ]}
+      ]
+    },
+    {
+      "name": "pithos",
+      "sources": [{
+        "type": "git",
+        "url": "https://github.com/pithos/pithos.git"
+      }],
+      "modules": [
+        {
+          "name": "dbus-python",
+          "build-options": { "env": { "PYTHON": "python3" } },
+          "cleanup": [ "/include", "/share/doc", "/lib/pkgconfig" ],
+          "sources": [{
+            "type": "archive",
+            "url": "http://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.2.4.tar.gz",
+            "sha256": "e2f1d6871f74fba23652e51d10873e54f71adab0525833c19bad9e99b1b2f9cc"
+          }]
+        }
+      ]
+    }
+  ]
+}
