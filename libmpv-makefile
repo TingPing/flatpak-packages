@@ -1,0 +1,5 @@
+all:
+	python2 ./waf build
+
+install:
+	python2 ./waf install
