@@ -3,8 +3,6 @@
   "runtime": "org.gnome.Platform",
   "runtime-version": "3.20",
   "sdk": "org.gnome.Sdk",
-  "rename-desktop-file": "pithos.desktop",
-  "rename-appdata-file": "pithos.appdata.xml",
   "rename-icon": "pithos",
   "copy-icon": true,
   "command": "pithos",
