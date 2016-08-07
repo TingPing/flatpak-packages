@@ -3,6 +3,7 @@ Packages
 
 - io.github.Pithos
 - io.github.GnomeMpv
+- io.github.Hexchat
 
 Installation
 ------------
