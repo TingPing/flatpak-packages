@@ -88,8 +88,8 @@
             "config-opts": [ "--enable-shared", "--disable-static", "--enable-gnutls" ],
             "sources": [{
               "type": "archive",
-              "url": "https://ffmpeg.org/releases/ffmpeg-3.0.2.tar.xz",
-              "sha256": "82943cc7b0c4d14b612404de0dd7b24cd8ca3511d51e4fd3ae36b2d71bb95223"
+              "url": "https://ffmpeg.org/releases/ffmpeg-3.1.2.tar.xz",
+              "sha256": "58d2a2b69f0f46fe8aacd45e582c62e380ba611b5baf6a4dfcf2906eb2b9bd61"
             }],
             "modules": [{
               "name": "yasm",
