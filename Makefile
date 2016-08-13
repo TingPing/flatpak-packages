@@ -12,7 +12,10 @@ gnome-mpv: io.github.GnomeMpv.json
 hexchat: io.github.Hexchat.json
 	flatpak-builder --force-clean --gpg-sign=$(GPG_KEYID) --repo=./repo ./build $<
 
+transmission: io.github.TransmissionRemoteGtk.json
+	flatpak-builder --force-clean --gpg-sign=$(GPG_KEYID) --repo=./repo ./build $<
+
 sync: ./repo
 	rsync -zrhe ssh --info=progress2 $</* tingping.se:/srv/http/tingping/flatpak
 
-.PHONY: all sync pithos gnome-mpv
+.PHONY: all sync pithos gnome-mpv hexchat transmission

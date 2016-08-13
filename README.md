@@ -4,6 +4,7 @@ Packages
 - io.github.Pithos
 - io.github.GnomeMpv
 - io.github.Hexchat
+- io.github.TransmissionRemoteGtk
 
 Installation
 ------------

@@ -1,0 +1,37 @@
+{
+  "app-id": "io.github.TransmissionRemoteGtk",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "3.20",
+  "sdk": "org.gnome.Sdk",
+  "command": "transmission-remote-gtk",
+  "rename-desktop-file": "transmission-remote-gtk.desktop",
+  "rename-appdata-file": "transmission-remote-gtk.appdata.xml",
+  "rename-icon": "transmission-remote-gtk",
+  "copy-icon": true,
+  "finish-args": [
+    "--share=ipc",
+    "--share=network",
+    "--socket=x11",
+    "--socket=wayland",
+
+    "--talk-name=org.freedesktop.Notifications",
+
+    "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
+    "--filesystem=xdg-run/dconf",
+    "--filesystem=~/.config/dconf:ro",
+    "--talk-name=ca.desrt.dconf"
+  ],
+  "modules": [
+    {
+      "name": "transmission-remote-gtk",
+      "config-opts": [
+        "--disable-desktop-database-update",
+        "--disable-debug"
+      ],
+      "sources": [{
+        "type": "git",
+        "url": "https://github.com/transmission-remote-gtk/transmission-remote-gtk.git"
+      }]
+    }
+  ]
+}
