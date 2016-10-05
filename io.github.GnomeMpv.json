@@ -1,7 +1,7 @@
 {
   "app-id": "io.github.GnomeMpv",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "3.20",
+  "runtime-version": "3.22",
   "sdk": "org.gnome.Sdk",
   "command": "gnome-mpv",
   "rename-icon": "gnome-mpv",
@@ -12,9 +12,6 @@
       "--socket=wayland",
       "--device=dri",
       "--share=network",
-      "--filesystem=home",
-      "--filesystem=xdg-videos",
-      "--filesystem=/mnt",
       "--socket=pulseaudio",
       "--talk-name=org.gtk.vfs",
       "--talk-name=org.gtk.vfs.*",
@@ -124,8 +121,8 @@
             "build-options": { "env": { "PREFIX": "/app" } },
             "sources": [{
               "type": "archive",
-              "url": "https://github.com/rg3/youtube-dl/releases/download/2016.06.25/youtube-dl-2016.06.25.tar.gz",
-              "sha256": "4b89cb8dd9314f3291509ec9fce99e25ffd2161b745e1fff064ae102bbf6a12f"
+              "url": "https://github.com/rg3/youtube-dl/releases/download/2016.09.24/youtube-dl-2016.09.24.tar.gz",
+              "sha256": "d45a17fb6be7d2e6c3df56f54d1a944fac8b68a577b673d8b15cef8e47bb3a57"
             }]
           }
         ]}
