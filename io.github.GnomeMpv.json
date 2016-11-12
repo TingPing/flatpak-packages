@@ -40,13 +40,13 @@
         "sources": [
           {
             "type": "archive",
-            "url": "https://github.com/mpv-player/mpv/archive/v0.18.1.tar.gz",
-            "sha256": "e413d57fec4ad43b9f9b848f38d13fb921313fc9a4a64bf1e906c8d0f7a46329"
+            "url": "https://github.com/mpv-player/mpv/archive/v0.21.0.tar.gz",
+            "sha256": "d05f8ece859c500ef1649cdfea911ec1529df1898b8fda3e217766dc28dc9bd3"
           },
           {
             "type": "file",
-            "url": "https://waf.io/waf-1.8.21",
-            "sha256": "31383a18d183c72be70d251e09b47389a6eb4bebbc94b737cff3187ddd88dff1",
+            "url": "https://waf.io/waf-1.9.5",
+            "sha256": "101f14e0f47a6410c00b8feda094948516cd3989491c56eb8268907fcd164909",
             "dest-filename": "waf"
           },
           {
@@ -66,8 +66,8 @@
             "config-opts": [ "--disable-static" ],
             "sources": [{
               "type": "archive",
-              "url": "https://github.com/libass/libass/releases/download/0.13.1/libass-0.13.1.tar.xz",
-              "sha256": "4aa36b1876a61cab46fc9284fee84224b9e2840fe7b3e63d96a8d32574343fe7"
+              "url": "https://github.com/libass/libass/releases/download/0.13.4/libass-0.13.4.tar.xz",
+              "sha256": "d84a2fc89011b99d87fc47af91906622707c165d1860e9f774825ebbbc9c9fb6"
             }],
             "modules": [{
               "name": "fribidi",
@@ -85,8 +85,8 @@
             "config-opts": [ "--enable-shared", "--disable-static", "--enable-gnutls" ],
             "sources": [{
               "type": "archive",
-              "url": "https://ffmpeg.org/releases/ffmpeg-3.1.2.tar.xz",
-              "sha256": "58d2a2b69f0f46fe8aacd45e582c62e380ba611b5baf6a4dfcf2906eb2b9bd61"
+              "url": "https://ffmpeg.org/releases/ffmpeg-3.2.tar.xz",
+              "sha256": "88f70c1b8cab108f494ecbab5ba302cdb35d59a84cea88008b5fe49be068d5da"
             }],
             "modules": [{
               "name": "yasm",
@@ -121,8 +121,8 @@
             "build-options": { "env": { "PREFIX": "/app" } },
             "sources": [{
               "type": "archive",
-              "url": "https://github.com/rg3/youtube-dl/releases/download/2016.09.24/youtube-dl-2016.09.24.tar.gz",
-              "sha256": "d45a17fb6be7d2e6c3df56f54d1a944fac8b68a577b673d8b15cef8e47bb3a57"
+              "url": "https://github.com/rg3/youtube-dl/releases/download/2016.11.08.1/youtube-dl-2016.11.08.1.tar.gz",
+              "sha256": "95d45438254c949952127b269451da861682fb06a7ef62b5f5dc75bc40bfaeeb"
             }]
           }
         ]}
