@@ -1,0 +1,25 @@
+From 840d78d112dc49b7ba31dc5f351ca7fcaf5d752a Mon Sep 17 00:00:00 2001
+From: Patrick Griffis <tingping@tingping.se>
+Date: Wed, 23 Nov 2016 17:13:37 -0500
+Subject: [PATCH] notifications: Match flatpak app id
+
+---
+ src/fe-gtk/notifications/notification-libnotify.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/fe-gtk/notifications/notification-libnotify.c b/src/fe-gtk/notifications/notification-libnotify.c
+index 9114837..a4874bd 100644
+--- a/src/fe-gtk/notifications/notification-libnotify.c
++++ b/src/fe-gtk/notifications/notification-libnotify.c
+@@ -40,7 +40,7 @@ notification_backend_show (const char *title, const char *text)
+ 	notification = notify_notification_new (title, text, "hexchat", NULL);
+ #endif
+ #if NOTIFY_CHECK_VERSION(0,6,0)
+-	notify_notification_set_hint (notification, "desktop-entry", g_variant_new_string ("hexchat"));
++	notify_notification_set_hint (notification, "desktop-entry", g_variant_new_string ("io.github.Hexchat"));
+ #else
+ 	notify_notification_set_hint_string (notification, "desktop-entry", "hexchat");
+ #endif
+-- 
+2.10.2
+

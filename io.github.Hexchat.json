@@ -25,10 +25,16 @@
         "--disable-stack-protector",
         "--enable-python=python3"
       ],
-      "sources": [{
-        "type": "git",
-        "url": "https://github.com/hexchat/hexchat.git"
-      }],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/hexchat/hexchat.git"
+        },
+        {
+          "type": "patch",
+          "path": "hexchat-notification-appid.patch"
+        }
+      ],
       "modules": [
         {
           "name": "luajit",
