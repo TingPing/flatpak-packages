@@ -14,7 +14,7 @@ Installation
 ```sh
 flatpak --user remote-add gnome https://sdk.gnome.org/gnome.flatpakrepo
 flatpak --user remote-add tingping https://dl.tingping.se/flatpak/tingping.flatpakrepo
-flatpak --user install tingping io.github.GnomeMpv
+flatpak --user install tingping <package>
 ```
 
 ### Older
