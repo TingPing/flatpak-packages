@@ -33,6 +33,10 @@
         {
           "type": "patch",
           "path": "hexchat-notification-appid.patch"
+        },
+        {
+          "type": "patch",
+          "path": "hexchat-dbus-service-name.patch"
         }
       ],
       "modules": [
