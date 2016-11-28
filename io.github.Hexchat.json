@@ -24,6 +24,7 @@
         "--disable-stack-protector",
         "--enable-python=python3"
       ],
+      "post-install": [ "sed -Ei 's|^Exec=(\\S+)|Exec=\\1-wrapper|g' /app/share/applications/*.desktop" ],
       "sources": [
         {
           "type": "git",

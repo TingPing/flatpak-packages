@@ -121,7 +121,8 @@
       "sources": [{
         "type": "git",
         "url": "https://github.com/pithos/pithos.git"
-      }]
+      }],
+      "post-install": [ "sed -Ei 's|^Exec=(\\S+)|Exec=\\1-wrapper|g' /app/share/applications/*.desktop" ]
     },
     {
       "name": "wrapper",

@@ -32,6 +32,7 @@
         "type": "git",
         "url": "https://github.com/gnome-mpv/gnome-mpv.git"
       }],
+      "post-install": [ "sed -Ei 's|^Exec=(\\S+)|Exec=\\1-wrapper|g' /app/share/applications/*.desktop" ],
       "modules": [{
         "name": "libmpv",
         "cleanup": [ "/bin", "/share" ],
