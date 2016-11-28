@@ -3,7 +3,7 @@
   "runtime": "org.gnome.Platform",
   "runtime-version": "3.22",
   "sdk": "org.gnome.Sdk",
-  "command": "gnome-mpv",
+  "command": "gnome-mpv-wrapper",
   "rename-icon": "gnome-mpv",
   "copy-icon": true,
   "finish-args": [
@@ -21,10 +21,9 @@
       "--filesystem=~/.config/dconf:ro",
       "--talk-name=ca.desrt.dconf",
       "--own-name=org.mpris.MediaPlayer2.gnome-mpv.*",
-      "--env=SSL_CERT_DIR=/etc/ssl/certs",
-      "--env=SSL_CERT_FILE=/etc/ssl/cert.pem",
       "--filesystem=/etc/ssl:ro",
-      "--filesystem=/etc/ca-certificates:ro"
+      "--filesystem=/etc/ca-certificates:ro",
+      "--filesystem=/etc/pki:ro"
   ],
   "modules": [
     {
@@ -126,6 +125,21 @@
             }]
           }
         ]}
+      ]
+    },
+    {
+      "name": "wrapper",
+      "no-autogen": true,
+      "sources": [
+        {
+          "type": "file",
+          "path": "gnome-mpv-wrapper"
+        },
+        {
+          "type": "file",
+          "path": "wrapper-makefile",
+          "dest-filename": "Makefile"
+        }
       ]
     }
   ]

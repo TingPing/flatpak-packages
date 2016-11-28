@@ -3,7 +3,7 @@
   "runtime": "org.gnome.Platform",
   "runtime-version": "3.22",
   "sdk": "org.gnome.Sdk",
-  "command": "hexchat",
+  "command": "hexchat-wrapper",
   "rename-desktop-file": "hexchat.desktop",
   "rename-appdata-file": "hexchat.appdata.xml",
   "rename-icon": "hexchat",
@@ -15,7 +15,8 @@
     "--env=SSL_CERT_DIR=/etc/ssl/certs",
     "--env=SSL_CERT_FILE=/etc/ssl/cert.pem",
     "--filesystem=/etc/ssl:ro",
-    "--filesystem=/etc/ca-certificates:ro"
+    "--filesystem=/etc/ca-certificates:ro",
+    "--filesystem=/etc/pki:ro"
   ],
   "modules": [
     {
@@ -72,6 +73,21 @@
               "commands": [ "sed -i 's|/usr/local|/app|' ./lgi/Makefile" ]
             }
           ]
+        }
+      ]
+    },
+    {
+      "name": "wrapper",
+      "no-autogen": true,
+      "sources": [
+        {
+          "type": "file",
+          "path": "hexchat-wrapper"
+        },
+        {
+          "type": "file",
+          "path": "wrapper-makefile",
+          "dest-filename": "Makefile"
         }
       ]
     }

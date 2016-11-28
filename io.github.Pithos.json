@@ -3,7 +3,7 @@
   "runtime": "org.gnome.Platform",
   "runtime-version": "3.22",
   "sdk": "org.gnome.Sdk",
-  "command": "pithos",
+  "command": "pithos-wrapper",
   "finish-args": [
     "--share=ipc",
     "--share=network",
@@ -11,9 +11,8 @@
     "--socket=wayland",
     "--socket=pulseaudio",
 
-    "--env=SSL_CERT_DIR=/etc/ssl/certs",
-    "--env=SSL_CERT_FILE=/etc/ssl/cert.pem",
     "--filesystem=/etc/ssl:ro",
+    "--filesystem=/etc/pki:ro",
     "--filesystem=/etc/ca-certificates:ro",
 
     "--env=GST_PLUGIN_PATH_1_0=/app/lib/gstreamer-1.0",
@@ -123,6 +122,21 @@
         "type": "git",
         "url": "https://github.com/pithos/pithos.git"
       }]
+    },
+    {
+      "name": "wrapper",
+      "no-autogen": true,
+      "sources": [
+        {
+          "type": "file",
+          "path": "pithos-wrapper"
+        },
+        {
+          "type": "file",
+          "path": "wrapper-makefile",
+          "dest-filename": "Makefile"
+        }
+      ]
     }
   ]
 }
