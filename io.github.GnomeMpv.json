@@ -40,8 +40,8 @@
         "sources": [
           {
             "type": "archive",
-            "url": "https://github.com/mpv-player/mpv/archive/v0.21.0.tar.gz",
-            "sha256": "d05f8ece859c500ef1649cdfea911ec1529df1898b8fda3e217766dc28dc9bd3"
+            "url": "https://github.com/mpv-player/mpv/archive/v0.22.0.tar.gz",
+            "sha256": "c0f9ac8f0e37a391d19007b333ef8787c2f45d75a0d4401c0098cde52c5082f6"
           },
           {
             "type": "file",
@@ -85,8 +85,8 @@
             "config-opts": [ "--enable-shared", "--disable-static", "--enable-gnutls" ],
             "sources": [{
               "type": "archive",
-              "url": "https://ffmpeg.org/releases/ffmpeg-3.2.tar.xz",
-              "sha256": "88f70c1b8cab108f494ecbab5ba302cdb35d59a84cea88008b5fe49be068d5da"
+              "url": "https://ffmpeg.org/releases/ffmpeg-3.2.1.tar.xz",
+              "sha256": "1ecf93da5d601e6fb3096c65cbe33fdaf042d690a3c50c4efadb0a9b74f2badf"
             }],
             "modules": [{
               "name": "yasm",
@@ -121,8 +121,8 @@
             "build-options": { "env": { "PREFIX": "/app" } },
             "sources": [{
               "type": "archive",
-              "url": "https://github.com/rg3/youtube-dl/releases/download/2016.11.08.1/youtube-dl-2016.11.08.1.tar.gz",
-              "sha256": "95d45438254c949952127b269451da861682fb06a7ef62b5f5dc75bc40bfaeeb"
+              "url": "https://github.com/rg3/youtube-dl/releases/download/2016.11.27/youtube-dl-2016.11.27.tar.gz",
+              "sha256": "6ecc3996e28b6274d159643641a964098549b4cb8b33a3a3481148b88166e2cc"
             }]
           }
         ]}

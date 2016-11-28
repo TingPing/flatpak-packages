@@ -1,7 +1,7 @@
 
 GPG_KEYID := 0DE76DFC
 
-all: pithos gnome-mpv
+all: pithos gnome-mpv transmission hexchat
 
 pithos: io.github.Pithos.json
 	flatpak-builder --force-clean --gpg-sign=$(GPG_KEYID) --repo=./repo ./build $<
