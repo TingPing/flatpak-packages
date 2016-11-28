@@ -82,7 +82,8 @@
       "sources": [
         {
           "type": "file",
-          "path": "hexchat-wrapper"
+          "path": "ssl-wrapper",
+          "dest-filename": "hexchat-wrapper"
         },
         {
           "type": "file",

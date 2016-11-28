@@ -133,7 +133,8 @@
       "sources": [
         {
           "type": "file",
-          "path": "gnome-mpv-wrapper"
+          "path": "ssl-wrapper",
+          "dest-filename": "gnome-mpv-wrapper"
         },
         {
           "type": "file",

@@ -129,7 +129,8 @@
       "sources": [
         {
           "type": "file",
-          "path": "pithos-wrapper"
+          "path": "ssl-wrapper",
+          "dest-filename": "pithos-wrapper"
         },
         {
           "type": "file",
