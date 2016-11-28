@@ -12,8 +12,6 @@
     "--socket=x11",
     "--socket=session-bus",
     "--share=network",
-    "--env=SSL_CERT_DIR=/etc/ssl/certs",
-    "--env=SSL_CERT_FILE=/etc/ssl/cert.pem",
     "--filesystem=/etc/ssl:ro",
     "--filesystem=/etc/ca-certificates:ro",
     "--filesystem=/etc/pki:ro"
