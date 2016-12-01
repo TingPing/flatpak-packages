@@ -3,7 +3,7 @@
   "runtime": "org.gnome.Platform",
   "runtime-version": "3.22",
   "sdk": "org.gnome.Sdk",
-  "command": "gnome-mpv-wrapper",
+  "command": "gnome-mpv",
   "rename-icon": "gnome-mpv",
   "copy-icon": true,
   "finish-args": [
@@ -21,9 +21,7 @@
       "--filesystem=~/.config/dconf:ro",
       "--talk-name=ca.desrt.dconf",
       "--own-name=org.mpris.MediaPlayer2.gnome-mpv.*",
-      "--filesystem=/etc/ssl:ro",
-      "--filesystem=/etc/ca-certificates:ro",
-      "--filesystem=/etc/pki:ro"
+      "--env=SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
   ],
   "modules": [
     {
@@ -32,7 +30,6 @@
         "type": "git",
         "url": "https://github.com/gnome-mpv/gnome-mpv.git"
       }],
-      "post-install": [ "sed -Ei 's|^Exec=(\\S+)|Exec=\\1-wrapper|g' /app/share/applications/*.desktop" ],
       "modules": [{
         "name": "libmpv",
         "cleanup": [ "/bin", "/share" ],
@@ -127,22 +124,6 @@
             }]
           }
         ]}
-      ]
-    },
-    {
-      "name": "wrapper",
-      "no-autogen": true,
-      "sources": [
-        {
-          "type": "file",
-          "path": "ssl-wrapper",
-          "dest-filename": "gnome-mpv-wrapper"
-        },
-        {
-          "type": "file",
-          "path": "wrapper-makefile",
-          "dest-filename": "Makefile"
-        }
       ]
     }
   ]

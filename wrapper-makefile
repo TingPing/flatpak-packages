@@ -1,4 +1,0 @@
-all:
-
-install:
-	install -Dm755 -t /app/bin ./*-wrapper

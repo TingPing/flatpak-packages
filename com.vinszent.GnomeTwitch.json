@@ -3,7 +3,7 @@
   "runtime": "org.gnome.Platform",
   "runtime-version": "3.22",
   "sdk": "org.gnome.Sdk",
-  "command": "gnome-twitch-wrapper",
+  "command": "gnome-twitch",
   "finish-args": [
     "--share=ipc",
     "--share=network",
@@ -12,15 +12,12 @@
     "--socket=pulseaudio",
 
     "--env=GST_PLUGIN_PATH_1_0=/app/lib/gstreamer-1.0",
+    "--env=SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
 
     "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
     "--filesystem=xdg-run/dconf",
     "--filesystem=~/.config/dconf:ro",
-    "--talk-name=ca.desrt.dconf",
-
-    "--filesystem=/etc/ssl:ro",
-    "--filesystem=/etc/pki:ro",
-    "--filesystem=/etc/ca-certificates:ro"
+    "--talk-name=ca.desrt.dconf"
   ],
   "modules": [
     {
@@ -61,7 +58,6 @@
       "builddir": true,
       "config-opts": [ "-Dwith-player-gstreamer-cairo=true", "--buildtype=release", "--libdir=lib", "-Db_lundef=false" ],
       "cleanup": [ "/include" ],
-      "post-install": [ "sed -Ei 's|^Exec=(\\S+)|Exec=\\1-wrapper|g' /app/share/applications/*.desktop" ],
       "sources": [{
         "type": "git",
         "url": "https://github.com/vinszent/gnome-twitch.git"
@@ -94,22 +90,6 @@
             "url": "https://download.gnome.org/sources/libpeas/1.20/libpeas-1.20.0.tar.xz",
             "sha256": "f392fffe2dc00072a51bb2a1b274224a06bdc5f9c3b3c0ac4816909e9933d354"
           }]
-        }
-      ]
-    },
-    {
-      "name": "wrapper",
-      "no-autogen": true,
-      "sources": [
-        {
-          "type": "file",
-          "path": "ssl-wrapper",
-          "dest-filename": "gnome-twitch-wrapper"
-        },
-        {
-          "type": "file",
-          "path": "wrapper-makefile",
-          "dest-filename": "Makefile"
         }
       ]
     }
