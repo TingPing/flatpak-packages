@@ -1,0 +1,117 @@
+{
+  "app-id": "com.vinszent.GnomeTwitch",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "3.22",
+  "sdk": "org.gnome.Sdk",
+  "command": "gnome-twitch-wrapper",
+  "finish-args": [
+    "--share=ipc",
+    "--share=network",
+    "--socket=x11",
+    "--socket=wayland",
+    "--socket=pulseaudio",
+
+    "--env=GST_PLUGIN_PATH_1_0=/app/lib/gstreamer-1.0",
+
+    "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
+    "--filesystem=xdg-run/dconf",
+    "--filesystem=~/.config/dconf:ro",
+    "--talk-name=ca.desrt.dconf",
+
+    "--filesystem=/etc/ssl:ro",
+    "--filesystem=/etc/pki:ro",
+    "--filesystem=/etc/ca-certificates:ro"
+  ],
+  "modules": [
+    {
+      "name": "gst-libav",
+      "config-opts": [ "--disable-gtk-doc" ],
+      "cleanup": [ "*.la", "/share/gtk-doc" ],
+      "sources": [{
+        "type": "archive",
+        "url": "https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-1.8.3.tar.xz",
+        "sha256": "9006a05990089f7155ee0e848042f6bb24e52ab1d0a59ff8d1b5d7e33001a495"
+      }],
+      "modules": [
+        {
+          "name": "ffmpeg",
+          "cleanup": [ "/include", "/lib/pkgconfig", "/share/ffmpeg/examples" ],
+          "config-opts": [ "--enable-shared", "--disable-static", "--enable-gnutls",
+                           "--disable-doc", "--disable-programs" ],
+          "sources": [{
+            "type": "archive",
+            "url": "https://ffmpeg.org/releases/ffmpeg-3.2.1.tar.xz",
+            "sha256": "1ecf93da5d601e6fb3096c65cbe33fdaf042d690a3c50c4efadb0a9b74f2badf"
+          }],
+          "modules": [{
+            "name": "yasm",
+            "cleanup": [ "/bin", "/lib", "/include", "/share" ],
+            "sources": [{
+              "type": "archive",
+              "url": "http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz",
+              "sha256": "3dce6601b495f5b3d45b59f7d2492a340ee7e84b5beca17e48f862502bd5603f"
+            }]
+          }]
+        }
+      ]
+    },
+    {
+      "name": "gnome-twitch",
+      "buildsystem": "meson",
+      "builddir": true,
+      "config-opts": [ "-Dwith-player-gstreamer-cairo=true", "--buildtype=release", "--libdir=lib", "-Db_lundef=false" ],
+      "cleanup": [ "/include" ],
+      "post-install": [ "sed -Ei 's|^Exec=(\\S+)|Exec=\\1-wrapper|g' /app/share/applications/*.desktop" ],
+      "sources": [{
+        "type": "git",
+        "url": "https://github.com/vinszent/gnome-twitch.git"
+      }],
+      "modules": [
+        {
+          "name": "meson",
+          "no-autogen": true,
+          "cleanup": [ "/bin", "/lib" ],
+          "sources": [
+            {
+              "type": "archive",
+              "url": "https://github.com/mesonbuild/meson/releases/download/0.36.0/meson-0.36.0.tar.gz",
+              "sha256": "dc087ec40dacb5e256e6ee6467f2d004faf4ef284d3c1ce5e89faa1e16540950"
+            },
+            {
+              "type": "file",
+              "path": "meson-makefile",
+              "dest-filename": "Makefile"
+            }
+          ]
+        },
+        {
+          "name": "libpeas",
+          "config-opts": [ "--disable-gtk-doc", "--disable-python2", "--disable-python3" ],
+          "cleanup": [ "/bin/*", "/lib/peas-demo", "/include", "/lib/girepository-1.0",
+                       "/lib/*.la", "/lib/pkgconfig", "/share/gir-1.0", "/share/gtk-doc" ],
+          "sources": [{
+            "type": "archive",
+            "url": "https://download.gnome.org/sources/libpeas/1.20/libpeas-1.20.0.tar.xz",
+            "sha256": "f392fffe2dc00072a51bb2a1b274224a06bdc5f9c3b3c0ac4816909e9933d354"
+          }]
+        }
+      ]
+    },
+    {
+      "name": "wrapper",
+      "no-autogen": true,
+      "sources": [
+        {
+          "type": "file",
+          "path": "ssl-wrapper",
+          "dest-filename": "gnome-twitch-wrapper"
+        },
+        {
+          "type": "file",
+          "path": "wrapper-makefile",
+          "dest-filename": "Makefile"
+        }
+      ]
+    }
+  ]
+}

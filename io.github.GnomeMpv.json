@@ -81,8 +81,9 @@
           },
           {
             "name": "ffmpeg",
-            "cleanup": [ "/bin", "/include" ],
-            "config-opts": [ "--enable-shared", "--disable-static", "--enable-gnutls" ],
+            "cleanup": [ "/include", "/lib/pkgconfig", "/share/ffmpeg/examples" ],
+            "config-opts": [ "--enable-shared", "--disable-static", "--enable-gnutls",
+                           "--disable-doc", "--disable-programs" ],
             "sources": [{
               "type": "archive",
               "url": "https://ffmpeg.org/releases/ffmpeg-3.2.1.tar.xz",

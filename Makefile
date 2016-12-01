@@ -1,7 +1,7 @@
 
 GPG_KEYID := 0DE76DFC
 
-all: pithos gnome-mpv transmission hexchat
+all: pithos gnome-mpv transmission hexchat gnome-twitch
 
 pithos: io.github.Pithos.json
 	flatpak-builder --force-clean --gpg-sign=$(GPG_KEYID) --repo=./repo ./build $<
@@ -15,7 +15,10 @@ hexchat: io.github.Hexchat.json
 transmission: io.github.TransmissionRemoteGtk.json
 	flatpak-builder --force-clean --gpg-sign=$(GPG_KEYID) --repo=./repo ./build $<
 
+gnome-twitch: com.vinszent.GnomeTwitch.json
+	flatpak-builder --force-clean --gpg-sign=$(GPG_KEYID) --repo=./repo ./build $<
+
 sync: ./repo
 	rsync -zrhe ssh --info=progress2 $</* tingping.se:/srv/http/tingping/flatpak
 
-.PHONY: all sync pithos gnome-mpv hexchat transmission
+.PHONY: all sync pithos gnome-mpv hexchat transmission gnome-twitch

@@ -5,6 +5,7 @@ Packages
 - io.github.GnomeMpv
 - io.github.Hexchat
 - io.github.TransmissionRemoteGtk
+- com.vinszent.GnomeTwitch
 
 Installation
 ------------
