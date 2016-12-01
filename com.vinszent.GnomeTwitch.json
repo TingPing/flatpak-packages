@@ -25,7 +25,7 @@
   "modules": [
     {
       "name": "gst-libav",
-      "config-opts": [ "--disable-gtk-doc" ],
+      "config-opts": [ "--disable-gtk-doc", "--with-system-libav" ],
       "cleanup": [ "*.la", "/share/gtk-doc" ],
       "sources": [{
         "type": "archive",
