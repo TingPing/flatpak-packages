@@ -41,79 +41,35 @@
   ],
   "modules": [
     {
-      "name": "gstreamer-plugins-ugly",
-      "config-opts": [
-        "--disable-gtk-doc", "--disable-examples", "--with-plugins=mpg123"
-      ],
-      "cleanup": [ "/share" ],
-      "build-options" : {
-        "arch" : {
-          "i386" : { "config-opts" : [ "--build=i586-unknown-linux-gnu" ] },
-          "arm" : { "config-opts" : [ "--build=arm-unknown-linux-gnueabi" ] }
-        }
-      },
+      "name": "gst-libav",
+      "config-opts": [ "--disable-gtk-doc" ],
+      "cleanup": [ "*.la", "/share/gtk-doc" ],
       "sources": [{
         "type": "archive",
-        "url": "https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.8.3.tar.xz",
-        "sha256": "6fa2599fdd072d31fbaf50c34af406e2be944a010b1f4eab67a5fe32a0310693"
+        "url": "https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-1.8.3.tar.xz",
+        "sha256": "9006a05990089f7155ee0e848042f6bb24e52ab1d0a59ff8d1b5d7e33001a495"
       }],
       "modules": [
         {
-          "name": "mpg123",
-          "cleanup": [ "/bin", "/include", "/lib/pkgconfig", "/share" ],
+          "name": "ffmpeg",
+          "cleanup": [ "/include", "/lib/pkgconfig", "/share/ffmpeg/examples" ],
+          "config-opts": [ "--enable-shared", "--disable-static", "--enable-gnutls",
+                           "--disable-doc", "--disable-programs" ],
           "sources": [{
             "type": "archive",
-            "url": "http://downloads.sourceforge.net/project/mpg123/mpg123/1.23.8/mpg123-1.23.8.tar.bz2",
-            "sha256": "de2303c8ecb65593e39815c0a2f2f2d91f708c43b85a55fdd1934c82e677cf8e"
+            "url": "https://ffmpeg.org/releases/ffmpeg-3.2.1.tar.xz",
+            "sha256": "1ecf93da5d601e6fb3096c65cbe33fdaf042d690a3c50c4efadb0a9b74f2badf"
+          }],
+          "modules": [{
+            "name": "yasm",
+            "cleanup": [ "/bin", "/lib", "/include", "/share" ],
+            "sources": [{
+              "type": "archive",
+              "url": "http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz",
+              "sha256": "3dce6601b495f5b3d45b59f7d2492a340ee7e84b5beca17e48f862502bd5603f"
+            }]
           }]
         }
-      ]
-    },
-    {
-      "name": "gstreamer-plugins-bad",
-      "config-opts": [
-        "--disable-gtk-doc", "--disable-introspection", "--disable-examples",
-        "--disable-bz2", "--disable-curl", "--disable-dash", "--disable-webp",
-        "--disable-decklink", "--disable-dtls", "--disable-dvb", "--disable-fbdev",
-        "--disable-gl", "--disable-gtk3", "--disable-hls", "--disable-rsvg",
-        "--disable-sndfile", "--disable-shm", "--disable-smoothstreaming",
-        "--disable-vcd", "--disable-vdpau", "--disable-wayland", "--with-plugins=faad"
-      ],
-      "build-options" : {
-        "arch" : {
-          "i386" : { "config-opts" : [ "--build=i586-unknown-linux-gnu" ] },
-          "arm" : { "config-opts" : [ "--build=arm-unknown-linux-gnueabi" ] }
-        }
-      },
-      "cleanup": [
-        "/include", "/share", "/lib/pkgconfig", "/lib/gstreamer-1.0/include", "/lib/libgst*"
-      ],
-      "sources": [{
-        "type": "archive",
-        "url": "https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-1.8.3.tar.xz",
-        "sha256": "7899fcb18e6a1af2888b19c90213af018a57d741c6e72ec56b133bc73ec8509b"
-      }],
-      "modules": [{
-        "name": "faad",
-        "cleanup": [ "/bin", "/include", "/share" ],
-        "config-opts": [ "--disable-static" ],
-        "no-autogen": true,
-        "sources": [
-          {
-            "type": "archive",
-            "url": "http://downloads.sourceforge.net/sourceforge/faac/faad2-2.7.tar.bz2",
-            "sha256": "14561b5d6bc457e825bfd3921ae50a6648f377a9396eaf16d4b057b39a3f63b5"
-          },
-          {
-            "type": "patch",
-            "path": "libmp4ff-shared-lib.patch",
-            "sha256": "e0aaefeb20ebfec2f09e88a190f78e5744d9f1c71fe41977db8e4f29b5b88022"
-          },
-          {
-            "type": "shell",
-            "commands": [ "autoreconf --force --install" ]
-          }
-        ]}
       ]
     },
     {
