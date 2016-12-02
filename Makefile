@@ -1,24 +1,28 @@
 
 GPG_KEYID := 0DE76DFC
+REPO := ./repo
+BUILD_DIR := ./build
+BUILD_CMD = flatpak-builder --force-clean --require-changes --gpg-sign=$(GPG_KEYID) --repo=$(REPO) $(BUILD_DIR) $<
 
 all: pithos gnome-mpv transmission hexchat gnome-twitch
 
 pithos: io.github.Pithos.json
-	flatpak-builder --force-clean --gpg-sign=$(GPG_KEYID) --repo=./repo ./build $<
+	$(BUILD_CMD)
 
 gnome-mpv: io.github.GnomeMpv.json
-	flatpak-builder --force-clean --gpg-sign=$(GPG_KEYID) --repo=./repo ./build $<
+	$(BUILD_CMD)
 
 hexchat: io.github.Hexchat.json
-	flatpak-builder --force-clean --gpg-sign=$(GPG_KEYID) --repo=./repo ./build $<
+	$(BUILD_CMD)
 
 transmission: io.github.TransmissionRemoteGtk.json
-	flatpak-builder --force-clean --gpg-sign=$(GPG_KEYID) --repo=./repo ./build $<
+	$(BUILD_CMD)
 
 gnome-twitch: com.vinszent.GnomeTwitch.json
-	flatpak-builder --force-clean --gpg-sign=$(GPG_KEYID) --repo=./repo ./build $<
+	$(BUILD_CMD)
 
-sync: ./repo
-	rsync -zrhe ssh --info=progress2 $</* tingping.se:/srv/http/tingping/flatpak
+sync: $(REPO)
+	flatpak build-update-repo --gpg-sign=$(GPG_KEYID) --generate-static-deltas $(REPO)
+	python2 ./ostree-releng-scripts/rsync-repos --src=$(REPO) --dest=tingping.se:/srv/http/tingping/flatpak
 
-.PHONY: all sync pithos gnome-mpv hexchat transmission gnome-twitch
+.PHONY: all sync pithos gnome-mpv hexchat transmission gnome-twitch sync
