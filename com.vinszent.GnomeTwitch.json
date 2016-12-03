@@ -58,10 +58,16 @@
       "builddir": true,
       "config-opts": [ "-Dwith-player-gstreamer-cairo=true", "--buildtype=release", "--libdir=lib", "-Db_lundef=false" ],
       "cleanup": [ "/include" ],
-      "sources": [{
-        "type": "git",
-        "url": "https://github.com/vinszent/gnome-twitch.git"
-      }],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/vinszent/gnome-twitch.git"
+        },
+        {
+          "type": "patch",
+          "path": "gnome-twitch-appdata.patch"
+        }
+      ],
       "modules": [
         {
           "name": "meson",

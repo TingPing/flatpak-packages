@@ -1,0 +1,94 @@
+From 3323448167c5c5183f429d68bcca7e72599e9186 Mon Sep 17 00:00:00 2001
+From: Patrick Griffis <tingping@tingping.se>
+Date: Fri, 2 Dec 2016 01:41:47 -0500
+Subject: [PATCH] Add appdata file
+
+This is used by gnome-software and potentially other stores.
+---
+ data/com.vinszent.GnomeTwitch.appdata.xml.in | 47 ++++++++++++++++++++++++++++
+ data/meson.build                             |  9 ++++++
+ 2 files changed, 56 insertions(+)
+ create mode 100644 data/com.vinszent.GnomeTwitch.appdata.xml.in
+
+diff --git a/data/com.vinszent.GnomeTwitch.appdata.xml.in b/data/com.vinszent.GnomeTwitch.appdata.xml.in
+new file mode 100644
+index 0000000..442822c
+--- /dev/null
++++ b/data/com.vinszent.GnomeTwitch.appdata.xml.in
+@@ -0,0 +1,47 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<component type="desktop">
++  <id>com.vinszent.GnomeTwitch.desktop</id>
++  <translation type="gettext">gnome-twitch</translation>
++  <name>GNOME Twitch</name>
++  <developer_name>GNOME Twitch</developer_name>
++  <summary>Twitch desktop client</summary>
++  <metadata_license>CC0-1.0</metadata_license>
++  <project_license>GPL-3.0+</project_license>
++  <description>
++    <p>
++      Allows searching for and watching Twitch streams from the desktop.
++    </p>
++    <p>Notable Features:</p>
++    <ul>
++      <li>Watch your favourite streams natively with fully accelerated video</li>
++      <li>Built in chat which can even be overlayed over the video</li>
++      <li>Easy favourites/follows management and receive notifications when they are online</li>
++    </ul>
++  </description>
++  <url type="homepage">http://gnome-twitch.vinszent.com/</url>
++  <url type="bugtracker">https://github.com/vinszent/gnome-twitch/issues</url>
++  <screenshots>
++    <screenshot type="default">
++      <image>https://raw.githubusercontent.com/vinszent/gnome-twitch/master/data/screenshots/scrot_player.png</image>
++      <_caption>Watching a stream including chat</_caption>
++    </screenshot>
++    <screenshot>
++      <image>https://raw.githubusercontent.com/vinszent/gnome-twitch/master/data/screenshots/scrot_streams.png</image>
++      <_caption>Viewing live channels</_caption>
++    </screenshot>
++  </screenshots>
++  <releases>
++    <release date="2016-10-15" version="0.3.1">
++      <description>
++        <p>This is a minor release to fix an error getting follows.</p>
++      </description>
++    </release>
++  </releases>
++  <kudos>
++    <kudo>AppMenu</kudo>
++    <kudo>HiDpiIcon</kudo>
++    <kudo>ModernToolkit</kudo>
++    <kudo>Notifications</kudo>
++  </kudos>
++  <update_contact>vinszent_at_vinszent.com</update_contact>
++</component>
+diff --git a/data/meson.build b/data/meson.build
+index afbf7db..5d7d228 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -1,5 +1,7 @@
+ msgfmt = find_program('msgfmt')
++# TODO: Use join_paths with Meson >= 0.36.0
+ podir = meson.source_root() + '/po'
++appdatadir = get_option('datadir') + '/appdata'
+ 
+ custom_target('desktop-file',
+     input : 'com.vinszent.GnomeTwitch.desktop.in',
+@@ -9,6 +11,13 @@ custom_target('desktop-file',
+     install : true,
+     install_dir : 'share/applications')
+ 
++custom_target('appdata-file',
++    input : 'com.vinszent.GnomeTwitch.appdata.xml.in',
++    output : 'com.vinszent.GnomeTwitch.appdata.xml',
++    command : [msgfmt, '--xml', '--template', '@INPUT@', '-d', podir, '-o', '@OUTPUT@'],
++    install : true,
++    install_dir : appdatadir)
++
+ install_data('icons/hicolor/16x16/apps/com.vinszent.GnomeTwitch.png', install_dir : 'share/icons/hicolor/16x16/apps/')
+ install_data('icons/hicolor/22x22/apps/com.vinszent.GnomeTwitch.png', install_dir : 'share/icons/hicolor/22x22/apps')
+ install_data('icons/hicolor/24x24/apps/com.vinszent.GnomeTwitch.png', install_dir : 'share/icons/hicolor/24x24/apps')
+-- 
+2.10.2
+
