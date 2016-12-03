@@ -1,0 +1,16 @@
+{
+  "name": "luajit",
+  "no-autogen": true,
+  "cleanup": [ "/bin", "/lib/*.a", "/include" ],
+  "sources": [
+    {
+      "type": "archive",
+      "url": "http://luajit.org/download/LuaJIT-2.0.4.tar.gz",
+      "sha256": "620fa4eb12375021bef6e4f237cbd2dd5d49e56beb414bee052c746beef1807d"
+    },
+    {
+      "type": "shell",
+      "commands": [ "sed -i 's|/usr/local|/app|' ./Makefile" ]
+    }
+  ]
+}

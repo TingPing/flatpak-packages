@@ -58,6 +58,8 @@
           }
         ],
         "modules": [
+          "org.ffmpeg.FFmpeg.json",
+          "org.luajit.Luajit.json",
           {
             "name": "libass",
             "config-opts": [ "--disable-static" ],
@@ -75,42 +77,6 @@
                 "sha256": "08222a6212bbc2276a2d55c3bf370109ae4a35b689acbc66571ad2a670595a8e"
               }]
             }]
-          },
-          {
-            "name": "ffmpeg",
-            "cleanup": [ "/include", "/lib/pkgconfig", "/share/ffmpeg/examples" ],
-            "config-opts": [ "--enable-shared", "--disable-static", "--enable-gnutls",
-                           "--disable-doc", "--disable-programs" ],
-            "sources": [{
-              "type": "archive",
-              "url": "https://ffmpeg.org/releases/ffmpeg-3.2.1.tar.xz",
-              "sha256": "1ecf93da5d601e6fb3096c65cbe33fdaf042d690a3c50c4efadb0a9b74f2badf"
-            }],
-            "modules": [{
-              "name": "yasm",
-              "cleanup": [ "/bin", "/lib", "/include", "/share" ],
-              "sources": [{
-                "type": "archive",
-                "url": "http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz",
-                "sha256": "3dce6601b495f5b3d45b59f7d2492a340ee7e84b5beca17e48f862502bd5603f"
-              }]
-            }]
-          },
-          {
-            "name": "luajit",
-            "no-autogen": true,
-            "cleanup": [ "/bin", "/lib/*.a", "/include" ],
-            "sources": [
-              {
-                "type": "archive",
-                "url": "http://luajit.org/download/LuaJIT-2.0.4.tar.gz",
-                "sha256": "620fa4eb12375021bef6e4f237cbd2dd5d49e56beb414bee052c746beef1807d"
-              },
-              {
-                "type": "shell",
-                "commands": [ "sed -i 's|/usr/local|/app|' ./Makefile" ]
-              }
-            ]
           },
           {
             "name": "youtube-dl",
