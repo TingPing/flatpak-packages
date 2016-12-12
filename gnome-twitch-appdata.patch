@@ -1,4 +1,4 @@
-From 3323448167c5c5183f429d68bcca7e72599e9186 Mon Sep 17 00:00:00 2001
+From 7b639c1e0da60baf060dc2d54a66dd7a2c41921d Mon Sep 17 00:00:00 2001
 From: Patrick Griffis <tingping@tingping.se>
 Date: Fri, 2 Dec 2016 01:41:47 -0500
 Subject: [PATCH] Add appdata file
@@ -6,8 +6,8 @@ Subject: [PATCH] Add appdata file
 This is used by gnome-software and potentially other stores.
 ---
  data/com.vinszent.GnomeTwitch.appdata.xml.in | 47 ++++++++++++++++++++++++++++
- data/meson.build                             |  9 ++++++
- 2 files changed, 56 insertions(+)
+ data/meson.build                             |  7 +++++
+ 2 files changed, 54 insertions(+)
  create mode 100644 data/com.vinszent.GnomeTwitch.appdata.xml.in
 
 diff --git a/data/com.vinszent.GnomeTwitch.appdata.xml.in b/data/com.vinszent.GnomeTwitch.appdata.xml.in
@@ -64,31 +64,23 @@ index 0000000..442822c
 +  <update_contact>vinszent_at_vinszent.com</update_contact>
 +</component>
 diff --git a/data/meson.build b/data/meson.build
-index afbf7db..5d7d228 100644
+index 891f83b..8d7b25c 100644
 --- a/data/meson.build
 +++ b/data/meson.build
-@@ -1,5 +1,7 @@
- msgfmt = find_program('msgfmt')
-+# TODO: Use join_paths with Meson >= 0.36.0
- podir = meson.source_root() + '/po'
-+appdatadir = get_option('datadir') + '/appdata'
- 
- custom_target('desktop-file',
-     input : 'com.vinszent.GnomeTwitch.desktop.in',
-@@ -9,6 +11,13 @@ custom_target('desktop-file',
+@@ -9,6 +9,13 @@ custom_target('desktop-file',
      install : true,
-     install_dir : 'share/applications')
+     install_dir : join_paths(datadir, 'applications'))
  
 +custom_target('appdata-file',
 +    input : 'com.vinszent.GnomeTwitch.appdata.xml.in',
 +    output : 'com.vinszent.GnomeTwitch.appdata.xml',
 +    command : [msgfmt, '--xml', '--template', '@INPUT@', '-d', podir, '-o', '@OUTPUT@'],
 +    install : true,
-+    install_dir : appdatadir)
++    install_dir : join_paths(datadir, 'appdata'))
 +
- install_data('icons/hicolor/16x16/apps/com.vinszent.GnomeTwitch.png', install_dir : 'share/icons/hicolor/16x16/apps/')
- install_data('icons/hicolor/22x22/apps/com.vinszent.GnomeTwitch.png', install_dir : 'share/icons/hicolor/22x22/apps')
- install_data('icons/hicolor/24x24/apps/com.vinszent.GnomeTwitch.png', install_dir : 'share/icons/hicolor/24x24/apps')
+ icondir = join_paths(datadir, 'icons', 'hicolor')
+ icon_sizes = ['16x16', '24x24', '32x32', '48x48', '256x256', '512x512']
+ 
 -- 
 2.10.2
 
