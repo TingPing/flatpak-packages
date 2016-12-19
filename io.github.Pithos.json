@@ -50,6 +50,38 @@
       "modules": [ "org.ffmpeg.FFmpeg.json" ]
     },
     {
+      "name": "pylast",
+      "no-autogen": true,
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/pylast/pylast/archive/1.6.0.tar.gz",
+          "sha256": "14e611d231b25a9b2bd1b59baf6fb248834a6377c8dc3162ecf0cb57206d1321"
+        },
+        {
+          "type": "file",
+          "path": "setuptools-makefile",
+          "dest-filename": "Makefile"
+        }
+      ],
+      "modules": [{
+        "name": "six",
+        "no-autogen": true,
+        "sources": [
+          {
+            "type": "archive",
+            "url": "https://bitbucket.org/gutworth/six/get/1.10.0.tar.gz",
+            "sha256": "99e649e048a0c300e54d92ea47c43642549de141126482452b692c8441790df4"
+          },
+          {
+            "type": "file",
+            "path": "setuptools-makefile",
+            "dest-filename": "Makefile"
+          }
+        ]
+      }]
+    },
+    {
       "name": "pithos",
       "sources": [{
         "type": "git",

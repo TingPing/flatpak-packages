@@ -36,18 +36,12 @@
       "buildsystem": "meson",
       "config-opts": [ "--buildtype=release" ],
       "builddir": true,
-      "config-opts": [ "-Dwith-player-gstreamer-cairo=true", "--buildtype=release", "--libdir=lib", "-Db_lundef=false" ],
+      "config-opts": [ "-Dwith-player-gstreamer-cairo=true", "--buildtype=release", "--libdir=lib" ],
       "cleanup": [ "/include" ],
-      "sources": [
-        {
-          "type": "git",
-          "url": "https://github.com/vinszent/gnome-twitch.git"
-        },
-        {
-          "type": "patch",
-          "path": "gnome-twitch-appdata.patch"
-        }
-      ],
+      "sources": [{
+        "type": "git",
+        "url": "https://github.com/vinszent/gnome-twitch.git"
+      }],
       "modules": [
         {
           "name": "meson",
@@ -61,7 +55,7 @@
             },
             {
               "type": "file",
-              "path": "meson-makefile",
+              "path": "setuptools-makefile",
               "dest-filename": "Makefile"
             }
           ]
