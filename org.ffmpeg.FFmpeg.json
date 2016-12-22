@@ -8,7 +8,8 @@
     "--disable-doc",
     "--disable-programs",
     "--disable-encoders",
-    "--disable-indevs"
+    "--disable-muxers",
+    "--disable-devices"
 ],
   "sources": [{
     "type": "archive",
