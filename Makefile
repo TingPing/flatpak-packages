@@ -2,7 +2,7 @@
 GPG_KEYID := 0DE76DFC
 REPO := repo/
 BUILD_DIR := ./build
-BUILD_CMD = flatpak-builder --force-clean --require-changes --gpg-sign=$(GPG_KEYID) --repo=$(REPO) $(BUILD_DIR) $<
+BUILD_CMD = flatpak-builder --ccache --force-clean --require-changes --gpg-sign=$(GPG_KEYID) --repo=$(REPO) $(BUILD_DIR) $<
 
 all: pithos gnome-mpv transmission hexchat gnome-twitch
 
