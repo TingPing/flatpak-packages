@@ -41,13 +41,13 @@
           "sources": [
             {
               "type": "archive",
-              "url": "https://github.com/mpv-player/mpv/archive/v0.22.0.tar.gz",
-              "sha256": "c0f9ac8f0e37a391d19007b333ef8787c2f45d75a0d4401c0098cde52c5082f6"
+              "url": "https://github.com/mpv-player/mpv/archive/v0.24.0.tar.gz",
+              "sha256": "a41854fa0ac35b9c309ad692aaee67c8d4495c3546f11cb4cdd0a124195d3f15"
             },
             {
               "type": "file",
-              "url": "https://waf.io/waf-1.9.5",
-              "sha256": "101f14e0f47a6410c00b8feda094948516cd3989491c56eb8268907fcd164909",
+              "url": "https://waf.io/waf-1.9.8",
+              "sha256": "167dc42bab6d5bd823b798af195420319cb5c9b571e00db7d83df2a0fe1f4dbf",
               "dest-filename": "waf"
             },
             {
@@ -89,8 +89,8 @@
               "build-options": { "env": { "PREFIX": "/app" } },
               "sources": [{
                 "type": "archive",
-                "url": "https://github.com/rg3/youtube-dl/releases/download/2016.11.27/youtube-dl-2016.11.27.tar.gz",
-                "sha256": "6ecc3996e28b6274d159643641a964098549b4cb8b33a3a3481148b88166e2cc"
+                "url": "https://github.com/rg3/youtube-dl/releases/download/2017.02.16/youtube-dl-2017.02.16.tar.gz",
+                "sha256": "21a5014f25d8ad2882999dd8cbf8cc2fd13c42116f5fe7b4781c982421ea59b0"
               }]
             }
           ]
