@@ -36,8 +36,11 @@
       "buildsystem": "meson",
       "config-opts": [ "--buildtype=release" ],
       "builddir": true,
-      "config-opts": [ "-Dwith-player-gstreamer-cairo=true", "-Dwith-player-gstreamer-opengl=true",
-                       "--buildtype=release", "--libdir=lib" ],
+      "config-opts": [
+        "-Dbuild-player-backend-gstreamer-cairo=true",
+        "-Dbuild-player-backend-gstreamer-opengl=true",
+        "--buildtype=release", "--libdir=lib"
+      ],
       "cleanup": [ "/include" ],
       "sources": [{
         "type": "git",
