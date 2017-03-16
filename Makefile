@@ -2,9 +2,10 @@
 GPG_KEYID := 0DE76DFC
 REPO := repo/
 BUILD_DIR := ./build
-BUILD_CMD = flatpak-builder --ccache --force-clean --require-changes --gpg-sign=$(GPG_KEYID) --repo=$(REPO) $(BUILD_DIR) $<
+BUILD_CMD_BASE = flatpak-builder --ccache --force-clean --require-changes --skip-if-unchanged --gpg-sign=$(GPG_KEYID) --repo=$(REPO) $(BUILD_DIR)
+BUILD_CMD = $(BUILD_CMD_BASE) $<
 
-all: pithos gnome-mpv transmission hexchat gnome-twitch
+all: pithos gnome-mpv transmission-remote-gnome transmission-remote-gtk hexchat gnome-twitch
 
 pithos: io.github.Pithos.json
 	$(BUILD_CMD)
@@ -15,11 +16,14 @@ gnome-mpv: io.github.GnomeMpv.json
 hexchat: io.github.Hexchat.json
 	$(BUILD_CMD)
 
-transmission: io.github.TransmissionRemoteGtk.json
+transmission-remote-gtk: io.github.TransmissionRemoteGtk.json
 	$(BUILD_CMD)
 
 gnome-twitch: com.vinszent.GnomeTwitch.json
 	$(BUILD_CMD)
+
+transmission-remote-gnome:
+	$(BUILD_CMD_BASE) --from-git=https://github.com/TingPing/transmission-remote-gnome.git dist/flatpak/se.tingping.Trg.json
 
 sync: $(REPO)
 	flatpak build-update-repo --gpg-sign=$(GPG_KEYID) --generate-static-deltas $(REPO)
