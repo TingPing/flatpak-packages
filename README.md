@@ -1,27 +1,22 @@
 Packages
 --------
 
-- io.github.Pithos
-- io.github.GnomeMpv
-- io.github.Hexchat
-- io.github.TransmissionRemoteGtk
-- com.vinszent.GnomeTwitch
+- [io.github.Pithos](https://dl.tingping.se/flatpak/pithos.flatpakref)
+- [io.github.GnomeMpv](https://dl.tingping.se/flatpak/gnome-mpv.flatpakref)
+- [io.github.Hexchat](https://dl.tingping.se/flatpak/hexchat.flatpakref)
+- [com.vinszent.GnomeTwitch](https://dl.tingping.se/flatpak/gnome-twitch.flatpakref)
+- [se.tingping.Trg](https://dl.tingping.se/flatpak/transmission-remote-gnome.flatpakref)
+- [io.github.TransmissionRemoteGtk](https://dl.tingping.se/flatpak/transmission-remote-gtk.flatpakref)
 
 Installation
 ------------
 
+### Gnome Software 3.22+
+
+Simply download one of the links above and open it.
+
 ### Flatpak 0.6.13+
 
 ```sh
-flatpak --user remote-add gnome https://sdk.gnome.org/gnome.flatpakrepo
-flatpak --user remote-add tingping https://dl.tingping.se/flatpak/tingping.flatpakrepo
-flatpak --user install tingping <package>
-```
-
-### Older
-```sh
-wget https://dl.tingping.se/flatpak/tingping.flatpakrepo
-flatpak --user remote-add tingping --from=tingping.flatpakrepo
-
-flatpak --user install tingping <package>
+flatpak install --from=$link_above
 ```
