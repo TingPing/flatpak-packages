@@ -37,8 +37,7 @@
       "config-opts": [ "--buildtype=release" ],
       "builddir": true,
       "config-opts": [
-        "-Dbuild-player-backend-gstreamer-cairo=true",
-        "-Dbuild-player-backend-gstreamer-opengl=true",
+        "-Dbuild-player-backends=gstreamer-cairo,gstreamer-opengl",
         "--buildtype=release", "--libdir=lib"
       ],
       "cleanup": [ "/include" ],
