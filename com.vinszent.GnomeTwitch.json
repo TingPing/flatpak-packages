@@ -1,7 +1,7 @@
 {
   "app-id": "com.vinszent.GnomeTwitch",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "3.22",
+  "runtime-version": "3.24",
   "sdk": "org.gnome.Sdk",
   "command": "gnome-twitch",
   "finish-args": [
@@ -46,7 +46,6 @@
         "url": "https://github.com/vinszent/gnome-twitch.git"
       }],
       "modules": [
-        "com.mesonbuild.Meson.json",
         {
           "name": "libpeas",
           "config-opts": [ "--disable-gtk-doc", "--disable-python2", "--disable-python3" ],

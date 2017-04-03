@@ -1,7 +1,7 @@
 {
   "app-id": "io.github.Hexchat",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "3.22",
+  "runtime-version": "3.24",
   "sdk": "org.gnome.Sdk",
   "command": "hexchat",
   "rename-desktop-file": "hexchat.desktop",

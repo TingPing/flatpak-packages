@@ -1,7 +1,7 @@
 {
   "app-id": "io.github.GnomeMpv",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "3.22",
+  "runtime-version": "3.24",
   "sdk": "org.gnome.Sdk",
   "command": "gnome-mpv",
   "rename-icon": "gnome-mpv",
@@ -33,7 +33,6 @@
         "url": "https://github.com/gnome-mpv/gnome-mpv.git"
       }],
       "modules": [
-        "com.mesonbuild.Meson.json",
         {
           "name": "libmpv",
           "cleanup": [ "/bin", "/share" ],
