@@ -21,7 +21,8 @@
     {
       "name": "libappindicator",
       "rm-configure": true,
-      "config-opts": ["--with-gtk=2", "--disable-static", "--disable-tests", "--disable-gtk-doc-html"],
+      "config-opts": ["--with-gtk=2", "--disable-static", "--disable-tests",
+                      "--disable-gtk-doc-html", "--disable-introspection"],
       "cleanup": ["/include", "/lib/*.la", "/lib/pkgconfig", "/libexec", "/share"],
       "sources": [
         {
@@ -37,7 +38,8 @@
       "modules": [
         {
           "name": "libindicator",
-          "config-opts": ["--with-gtk=2", "--disable-static", "--disable-tests"],
+          "config-opts": ["--with-gtk=2", "--disable-static",
+                          "--disable-tests"],
           "cleanup": ["/include", "/lib/*.la", "/lib/pkgconfig", "/libexec", "/share"],
           "sources": [
             {
@@ -57,14 +59,13 @@
         },
         {
           "name": "libdbusmenu",
-          "config-opts": ["--with-gtk=2", "--disable-static", "--disable-tests"],
+          "config-opts": ["--with-gtk=2", "--disable-static", "--disable-tests",
+                          "--disable-vala", "--disable-introspection"],
           "cleanup": ["/include", "/lib/*.la", "/lib/pkgconfig", "/libexec", "/share"],
           "build-options": {
             "env": {
               "HAVE_VALGRIND_FALSE": "'1'",
-              "HAVE_VALGRIND_TRUE": "''",
-              "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR": "/app/share/gir-1.0",
-              "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR": "/app/lib/girepository-1.0"
+              "HAVE_VALGRIND_TRUE": "''"
             }
           },
           "sources": [{
