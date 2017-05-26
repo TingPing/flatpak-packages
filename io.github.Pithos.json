@@ -36,8 +36,7 @@
     "--talk-name=org.kde.StatusNotifierWatcher",
     "--talk-name=com.canonical.indicator.application",
 
-    "--own-name=org.mpris.MediaPlayer2.pithos",
-    "--own-name=net.kevinmehall.Pithos"
+    "--own-name=org.mpris.MediaPlayer2.pithos"
   ],
   "modules": [
     {
