@@ -1,0 +1,146 @@
+{
+  "app-id": "io.atom.Atom",
+  "runtime": "org.gnome.Sdk",
+  "runtime-version": "3.24",
+  "branch": "beta",
+  "sdk": "org.gnome.Sdk",
+  "command": "atom-beta",
+  "rename-desktop-file": "atom-beta.desktop",
+  "separate-locales": false,
+  "finish-args": [
+      "--share=ipc", "--socket=x11",
+      "--socket=pulseaudio",
+      "--share=network",
+      "--device=dri",
+      "--filesystem=host",
+      "--talk-name=org.freedesktop.Notifications",
+      "--talk-name=org.freedesktop.secrets"
+    ],
+  "modules": [
+    {
+      "name": "atom",
+      "buildsystem": "simple",
+      "build-commands": [
+        "./script/build --install=/app",
+        "install -Dm644 io.atom.Atom.appdata.xml /app/share/appdata/io.atom.Atom.appdata.xml",
+        "install -Dm644 resources/app-icons/beta/png/1024.png /app/share/icons/hicolor/1024x1024/apps/io.atom.Atom.png",
+        "install -Dm644 resources/app-icons/beta/png/512.png /app/share/icons/hicolor/512x512/apps/io.atom.Atom.png",
+        "install -Dm644 resources/app-icons/beta/png/256.png /app/share/icons/hicolor/256x256/apps/io.atom.Atom.png",
+        "install -Dm644 resources/app-icons/beta/png/128.png /app/share/icons/hicolor/128x128/apps/io.atom.Atom.png",
+        "install -Dm644 resources/app-icons/beta/png/64.png /app/share/icons/hicolor/64x64/apps/io.atom.Atom.png",
+        "install -Dm644 resources/app-icons/beta/png/32.png /app/share/icons/hicolor/32x32/apps/io.atom.Atom.png",
+        "desktop-file-edit --set-icon=io.atom.Atom /app/share/applications/atom-beta.desktop",
+        "desktop-file-edit --set-key=Exec --set-value='atom-beta %F' /app/share/applications/atom-beta.desktop",
+        "install -m755 atom-beta /app/bin/atom-beta"
+      ],
+      "build-options": {
+        "build-args": [
+          "--share=network"
+        ]
+      },
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/atom/atom/archive/v1.18.0-beta0.tar.gz",
+          "sha256": "e26696c8e2f664485b99cf2597d6dee75837075fd927b34353e4c723fe6d9bde"
+        },
+        {
+          "type": "file",
+          "path": "io.atom.Atom.appdata.xml"
+        },
+        {
+          "type": "script",
+          "dest-filename": "atom-beta",
+          "commands": [
+            "exec env ATOM_HOME=\"$XDG_DATA_HOME\" /app/share/atom-beta/atom \"$@\""
+          ]
+        }
+      ],
+      "modules": [
+        {
+          "name": "nodejs",
+          "cleanup": ["/lib/node_modules/npm/docs", "/lib/node_modules/npm/changelogs",
+                      "/lib/node_modules/npm/html", "/lib/node_modules/npm/man"],
+          "sources": [
+            {
+              "type": "archive",
+              "url": "https://nodejs.org/dist/v6.10.3/node-v6.10.3.tar.gz",
+              "sha256": "a8f679f595fd921305c28d126935ad59b4419ac8474a99997a31e01ab50acd3d"
+            }
+          ]
+        },
+        {
+          "name": "udev",
+          "config-opts": [ "--disable-hwdb", "--disable-logging", "--disable-gudev",
+                           "--disable-introspection", "--disable-keymap", "--disable-mtd_probe"],
+          "cleanup": ["/share", "/include", "/bin", "/sbin"],
+          "sources": [
+            {
+              "type": "archive",
+              "url": "http://kernel.org/pub/linux/utils/kernel/hotplug/udev-175.tar.bz2",
+              "sha256": "4c7937fe5a1521316ea571188745b9a00a9fdf314228cffc53a7ba9e5968b7ab"
+            }
+          ]
+        },
+        {
+          "name": "gconf",
+          "config-opts": ["--disable-orbit", "--disable-static", "--disable-introspection",
+                          "--without-openldap"],
+          "cleanup": ["/bin", "/include", "/lib/pkgconfig", "/lib/*.la", "/share", "/etc"],
+          "sources": [
+            {
+                "type": "archive",
+                "url": "http://ftp.gnome.org/pub/GNOME/sources/GConf/3.2/GConf-3.2.6.tar.xz",
+                "sha256": "1912b91803ab09a5eed34d364bf09fe3a2a9c96751fde03a4e0cfa51a04d784c"
+            }
+          ]
+        },
+        {
+          "name": "libgnome-keyring",
+          "cleanup": ["/include", "/lib/pkgconfig", "/lib/*.la", "/share"],
+          "config-opts": [ "--disable-static", "--disable-gtk-doc", "--disable-coverage",
+                           "--disable-introspection" ],
+          "sources": [
+            {
+              "type": "archive",
+              "url": "https://download.gnome.org/sources/libgnome-keyring/3.12/libgnome-keyring-3.12.0.tar.xz",
+              "sha256": "c4c178fbb05f72acc484d22ddb0568f7532c409b0a13e06513ff54b91e947783"
+            },
+            {
+              "type": "patch",
+              "path": "libgnome-keyring-detect-gcrypt.patch"
+            },
+            {
+              "type": "shell",
+              "commands": [
+                  "autoreconf -fi"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "xkbfile",
+          "cleanup": ["/include", "/lib/*.la", "/lib/pkgconfig"],
+          "config-opts": ["--disable-static"],
+          "sources": [
+            {
+              "type": "archive",
+              "url": "https://www.x.org/releases/individual/lib/libxkbfile-1.0.9.tar.bz2",
+              "sha256": "51817e0530961975d9513b773960b4edd275f7d5c72293d5a151ed4f42aeb16a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gvfs-trash",
+      "buildsystem": "simple",
+      "build-commands": [ "install -m755 gvfs-trash /app/bin/gvfs-trash" ],
+      "sources": [{
+        "type": "script",
+        "dest-filename": "gvfs-trash",
+        "commands": ["exec gio trash \"$@\""]
+      }]
+    }
+  ]
+}
