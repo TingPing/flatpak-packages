@@ -1,0 +1,133 @@
+{
+  "app-id": "net.lutris.Lutris",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "3.24",
+  "sdk": "org.gnome.Sdk",
+  "command": "lutris",
+  "rename-desktop-file": "lutris.desktop",
+  "rename-appdata-file": "lutris.appdata.xml",
+  "rename-icon": "lutris",
+  "finish-args": [
+    "--share=ipc",
+    "--share=network",
+    "--socket=x11",
+    "--socket=wayland",
+    "--socket=pulseaudio",
+    "--device=dri",
+    "--filesystem=host",
+
+    "--env=SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
+  ],
+  "modules": [
+    {
+      "name": "xrandr",
+      "sources": [{
+        "type": "archive",
+        "url": "https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.0.tar.bz2",
+        "sha256": "c1cfd4e1d4d708c031d60801e527abc9b6d34b85f2ffa2cadd21f75ff38151cd"
+      }]
+    },
+    {
+      "name": "py-yaml",
+      "buildsystem": "simple",
+      "build-commands": [
+        "python3 ./setup.py install --prefix=/app"
+      ],
+      "sources": [{
+        "type": "archive",
+        "url": "https://pypi.python.org/packages/4a/85/db5a2df477072b2902b0eb892feb37d88ac635d36245a72a6a69b23b383a/PyYAML-3.12.tar.gz",
+        "sha256": "592766c6303207a20efc445587778322d7f73b161bd994f227adaa341ba212ab"
+      }]
+    },
+    {
+      "name": "python-evdev",
+      "buildsystem": "simple",
+      "build-commands": [
+        "python3 ./setup.py install --prefix=/app",
+        "rm /app/lib/python3.5/site-packages/easy-install.pth"
+      ],
+      "sources": [{
+        "type": "archive",
+        "url": "https://pypi.python.org/packages/0c/53/f9eb749a2625f45bbc26127c7ee7e4c0eb5d7e4f20f55055a5fb419c27ad/evdev-0.6.4.tar.gz",
+        "sha256": "5268744d8493c273614036cf6423fa175952c64fc1d8d265210e48a4437a6af2"
+      }]
+    },
+    {
+      "name": "setuptools",
+      "buildsystem": "simple",
+      "build-commands": [
+        "pip3 install --prefix=/app --ignore-installed --no-deps setuptools-35.0.2-py2.py3-none-any.whl"
+      ],
+      "sources": [{
+        "type": "file",
+        "url": "https://pypi.python.org/packages/27/45/79618f80704497f74f2de1ca62216a5c3ffdbd49f43047c81c30e126a055/setuptools-35.0.2-py2.py3-none-any.whl",
+        "sha256": "19d753940f8cdbee7548da318f8b56159aead279ef811a6efc8b8a33d89c86a4"
+      }],
+      "modules": [
+        {
+          "name": "appdirs",
+          "buildsystem": "simple",
+          "build-commands": [
+            "pip3 install --prefix=/app appdirs-1.4.3-py2.py3-none-any.whl"
+          ],
+          "sources": [{
+            "type": "file",
+            "url": "https://pypi.python.org/packages/56/eb/810e700ed1349edde4cbdc1b2a21e28cdf115f9faf263f6bbf8447c1abf3/appdirs-1.4.3-py2.py3-none-any.whl",
+            "sha256": "d8b24664561d0d34ddfaec54636d502d7cea6e29c3eaf68f3df6180863e2166e"
+          }]
+        },
+        {
+          "name": "six",
+          "buildsystem": "simple",
+          "build-commands": [
+            "pip3 install --prefix=/app six-1.10.0-py2.py3-none-any.whl"
+          ],
+          "sources": [{
+            "type": "file",
+            "url": "https://pypi.python.org/packages/c8/0a/b6723e1bc4c516cb687841499455a8505b44607ab535be01091c0f24f079/six-1.10.0-py2.py3-none-any.whl",
+            "sha256": "0ff78c403d9bccf5a425a6d31a12aa6b47f1c21ca4dc2573a7e2f32a97335eb1"
+          }]
+        },
+        {
+          "name": "packaging",
+          "buildsystem": "simple",
+          "build-commands": [
+            "pip3 install --prefix=/app packaging-16.8-py2.py3-none-any.whl"
+          ],
+          "sources": [{
+            "type": "file",
+            "url": "https://pypi.python.org/packages/87/1b/c39b7c65b5612812b83d6cab7ef2885eac9f6beb0b7b8a7071a186aea3b1/packaging-16.8-py2.py3-none-any.whl",
+            "sha256": "99276dc6e3a7851f32027a68f1095cd3f77c148091b092ea867a351811cfe388"
+          }],
+          "modules": [
+            {
+              "name": "pyparsing",
+              "buildsystem": "simple",
+              "build-commands": [
+                "pip3 install --prefix=/app pyparsing-2.2.0-py2.py3-none-any.whl"
+              ],
+              "sources": [{
+                "type": "file",
+                "url": "https://pypi.python.org/packages/6a/8a/718fd7d3458f9fab8e67186b00abdd345b639976bc7fb3ae722e1b026a50/pyparsing-2.2.0-py2.py3-none-any.whl",
+                "sha256": "fee43f17a9c4087e7ed1605bd6df994c6173c1e977d7ade7b651292fab2bd010"
+              }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "lutris",
+      "buildsystem": "simple",
+      "build-commands": [
+        "sed -i \"s|('share'|('/app/share/'|\" setup.py",
+        "sed -i 's|/usr|/app|g' lutris/util/datapath.py",
+        "python3 ./setup.py install --prefix=/app"
+      ],
+      "sources": [{
+        "type": "git",
+        "url": "https://github.com/lutris/lutris.git"
+      }]
+    }
+  ]
+}
