@@ -5,6 +5,7 @@
   "sdk": "org.gnome.Sdk",
   "command": "gnome-mpv",
   "rename-icon": "gnome-mpv",
+  "copy-icon": true,
   "finish-args": [
       "--share=ipc",
       "--socket=x11",
@@ -15,6 +16,7 @@
       "--talk-name=org.gtk.vfs",
       "--talk-name=org.gtk.vfs.*",
       "--talk-name=org.gnome.SettingsDaemon",
+      "--talk-name=org.gnome.SettingsDaemon.MediaKeys",
       "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
       "--filesystem=xdg-run/dconf",
       "--filesystem=~/.config/dconf:ro",
@@ -27,36 +29,33 @@
       "name": "gnome-mpv",
       "buildsystem": "meson",
       "builddir": true,
-      "sources": [{
-        "type": "git",
-        "url": "https://github.com/gnome-mpv/gnome-mpv.git"
-      }],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/gnome-mpv/gnome-mpv.git"
+        }
+      ],
       "modules": [
         {
           "name": "libmpv",
           "cleanup": [ "/bin", "/share" ],
-          "config-opts": [ "--enable-libmpv-shared" ],
+          "buildsystem": "simple",
+          "build-commands": [
+            "python2 waf configure --prefix=/app --enable-libmpv-shared",
+            "python2 waf build",
+            "python2 waf install"
+          ],
           "sources": [
             {
               "type": "archive",
-              "url": "https://github.com/mpv-player/mpv/archive/v0.24.0.tar.gz",
-              "sha256": "a41854fa0ac35b9c309ad692aaee67c8d4495c3546f11cb4cdd0a124195d3f15"
+              "url": "https://github.com/mpv-player/mpv/archive/v0.25.0.tar.gz",
+              "sha256": "07423ffad6921ec4da32f703cd7fbfb27012301dcb736ac8542ac8e6083b0bce"
             },
             {
               "type": "file",
               "url": "https://waf.io/waf-1.9.8",
               "sha256": "167dc42bab6d5bd823b798af195420319cb5c9b571e00db7d83df2a0fe1f4dbf",
               "dest-filename": "waf"
-            },
-            {
-              "type": "file",
-              "path": "libmpv-configure",
-              "dest-filename": "configure"
-            },
-            {
-              "type": "file",
-              "path": "libmpv-makefile",
-              "dest-filename": "Makefile"
             }
           ],
           "modules": [
@@ -67,8 +66,8 @@
               "config-opts": [ "--disable-static" ],
               "sources": [{
                 "type": "archive",
-                "url": "https://github.com/libass/libass/releases/download/0.13.4/libass-0.13.4.tar.xz",
-                "sha256": "d84a2fc89011b99d87fc47af91906622707c165d1860e9f774825ebbbc9c9fb6"
+                "url": "https://github.com/libass/libass/releases/download/0.13.7/libass-0.13.7.tar.xz",
+                "sha256": "7065e5f5fb76e46f2042a62e7c68d81e5482dbeeda24644db1bd066e44da7e9d"
               }],
               "modules": [{
                 "name": "fribidi",
@@ -87,8 +86,8 @@
               "build-options": { "env": { "PREFIX": "/app" } },
               "sources": [{
                 "type": "archive",
-                "url": "https://github.com/rg3/youtube-dl/releases/download/2017.02.16/youtube-dl-2017.02.16.tar.gz",
-                "sha256": "21a5014f25d8ad2882999dd8cbf8cc2fd13c42116f5fe7b4781c982421ea59b0"
+                "url": "https://github.com/rg3/youtube-dl/releases/download/2017.06.12/youtube-dl-2017.06.12.tar.gz",
+                "sha256": "3cacd4aaaffd07eecd54eaea84b2a0537df3e5fc7bd5cd3bc96fa34dc8438ddc"
               }]
             }
           ]

@@ -1,9 +1,9 @@
 {
   "app-id": "io.atom.Atom",
-  "runtime": "org.gnome.Sdk",
-  "runtime-version": "3.24",
+  "runtime": "org.freedesktop.Sdk",
+  "runtime-version": "1.6",
   "branch": "beta",
-  "sdk": "org.gnome.Sdk",
+  "sdk": "org.freedesktop.Sdk",
   "command": "atom-beta",
   "rename-desktop-file": "atom-beta.desktop",
   "separate-locales": false,
