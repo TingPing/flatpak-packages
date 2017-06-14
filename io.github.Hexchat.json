@@ -17,10 +17,14 @@
   "modules": [
     {
       "name": "hexchat",
+      "buildsystem": "meson",
+      "builddir": true,
       "config-opts": [
-        "--disable-perl",
-        "--disable-stack-protector",
-        "--enable-python=python3"
+        "-Dwith-perl=false",
+        "-Dwith-sysinfo=false"
+      ],
+      "post-install": [
+        "mv /app/share/dbus-1/services/{org.hexchat.service,io.github.Hexchat}.service"
       ],
       "sources": [
         {

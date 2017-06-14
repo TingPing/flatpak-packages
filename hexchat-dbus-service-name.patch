@@ -4,25 +4,11 @@ Date: Mon, 28 Nov 2016 14:41:05 -0500
 Subject: [PATCH] Rename DBus service to match appid
 
 ---
- src/common/dbus/Makefile.am                    | 2 +-
  src/common/dbus/dbus-client.c                  | 2 +-
  src/common/dbus/dbus-plugin.c                  | 2 +-
  src/common/dbus/org.hexchat.service.service.in | 4 ++--
- 4 files changed, 5 insertions(+), 5 deletions(-)
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/src/common/dbus/Makefile.am b/src/common/dbus/Makefile.am
-index 4cbbac2..19f6a5a 100644
---- a/src/common/dbus/Makefile.am
-+++ b/src/common/dbus/Makefile.am
-@@ -27,7 +27,7 @@ remote-object-glue.h: remote-object.xml
- # Dbus service file
- servicedir = $(DBUS_SERVICES_DIR)
- service_in_files = org.hexchat.service.service.in
--service_DATA = $(service_in_files:.service.in=.service)
-+service_DATA = $(service_in_files:org.hexchat.service.service.in=io.github.Hexchat.service)
- 
- # Rule to make the service file with bindir expanded
- $(service_DATA): $(service_in_files) Makefile
 diff --git a/src/common/dbus/dbus-client.c b/src/common/dbus/dbus-client.c
 index 6de0158..6ad3c23 100644
 --- a/src/common/dbus/dbus-client.c
