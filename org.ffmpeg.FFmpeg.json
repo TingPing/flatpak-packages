@@ -13,7 +13,7 @@
 ],
   "sources": [{
     "type": "archive",
-    "url": "https://ffmpeg.org/releases/ffmpeg-3.2.4.tar.xz",
-    "sha256": "6e38ff14f080c98b58cf5967573501b8cb586e3a173b591f3807d8f0660daf7a"
+    "url": "https://ffmpeg.org/releases/ffmpeg-3.3.2.tar.xz",
+    "sha256": "1998de1ab32616cbf2ff86efc3f1f26e76805ec5dc51e24c041c79edd8262785"
   }]
 }

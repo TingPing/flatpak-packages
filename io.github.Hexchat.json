@@ -44,7 +44,7 @@
           "build-options": {
             "cflags": "-O2",
             "env": {
-              "LUA_CFLAGS": "-I/app/include/luajit-2.0"
+              "LUA_CFLAGS": "-I/app/include/luajit-2.1"
             }
           },
           "sources": [
