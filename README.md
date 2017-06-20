@@ -7,7 +7,6 @@ Packages
 - [com.vinszent.GnomeTwitch](https://dl.tingping.se/flatpak/gnome-twitch.flatpakref)
 - [se.tingping.Trg](https://dl.tingping.se/flatpak/transmission-remote-gnome.flatpakref)
 - [io.github.TransmissionRemoteGtk](https://dl.tingping.se/flatpak/transmission-remote-gtk.flatpakref)
-- [com.discordapp.Discord](https://dl.tingping.se/flatpak/discord.flatpakref)
 
 Installation
 ------------
