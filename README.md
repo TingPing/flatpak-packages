@@ -16,8 +16,15 @@ Installation
 
 Simply download one of the links above and open it.
 
+### Flatpak 0.9.5+
+
+```sh
+flatpak install --from $link_above
+```
+
 ### Flatpak 0.6.13+
 
 ```sh
 flatpak install --from=$link_above
 ```
+
