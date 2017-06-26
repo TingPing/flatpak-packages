@@ -1,3 +1,5 @@
+These are development releases, for stable releases please check out the [flathub](https://flathub.org) repository which contains most of these projects and many more.
+
 Packages
 --------
 
