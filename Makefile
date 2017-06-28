@@ -5,7 +5,7 @@ BUILD_DIR := ./build
 BUILD_CMD_BASE = flatpak-builder --ccache --force-clean --rebuild-on-sdk-change --require-changes --gpg-sign=$(GPG_KEYID) --repo=$(REPO) $(BUILD_DIR)
 BUILD_CMD = $(BUILD_CMD_BASE) $<
 
-all: pithos gnome-mpv transmission-remote-gnome hexchat gnome-twitch discord
+all: pithos gnome-mpv transmission-remote-gnome hexchat gnome-twitch
 
 pithos: io.github.Pithos.json
 	$(BUILD_CMD)
@@ -14,9 +14,6 @@ gnome-mpv: io.github.GnomeMpv.json
 	$(BUILD_CMD)
 
 hexchat: io.github.Hexchat.json
-	$(BUILD_CMD)
-
-discord: com.discordapp.Discord.json
 	$(BUILD_CMD)
 
 transmission-remote-gtk: io.github.TransmissionRemoteGtk.json
