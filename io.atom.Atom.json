@@ -1,9 +1,9 @@
 {
   "app-id": "io.atom.Atom",
-  "runtime": "org.freedesktop.Sdk",
-  "runtime-version": "1.6",
+  "runtime": "org.gnome.Sdk",
+  "runtime-version": "3.24",
   "branch": "beta",
-  "sdk": "org.freedesktop.Sdk",
+  "sdk": "org.gnome.Sdk",
   "command": "atom-beta",
   "rename-desktop-file": "atom-beta.desktop",
   "separate-locales": false,
@@ -41,8 +41,8 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://github.com/atom/atom/archive/v1.18.0-beta0.tar.gz",
-          "sha256": "e26696c8e2f664485b99cf2597d6dee75837075fd927b34353e4c723fe6d9bde"
+          "url": "https://github.com/atom/atom/archive/v1.19.0-beta2.tar.gz",
+          "sha256": "2a8ded27ae9b95dbfc81b7b863028ffa3078d9665676fc35f2e18c16dd5422ae"
         },
         {
           "type": "file",
@@ -139,7 +139,7 @@
       "sources": [{
         "type": "script",
         "dest-filename": "gvfs-trash",
-        "commands": ["exec gio trash \"$@\""]
+        "commands": ["exec rm -r \"$@\""]
       }]
     }
   ]
