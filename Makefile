@@ -5,7 +5,7 @@ BUILD_DIR := ./build
 BUILD_CMD_BASE = flatpak-builder --ccache --force-clean --rebuild-on-sdk-change --require-changes --gpg-sign=$(GPG_KEYID) --repo=$(REPO) $(BUILD_DIR)
 BUILD_CMD = $(BUILD_CMD_BASE) $<
 
-all: pithos gnome-mpv transmission-remote-gnome hexchat gnome-twitch
+all: pithos gnome-mpv transmission-remote-gnome hexchat gnome-twitch irc-client
 
 pithos: io.github.Pithos.json
 	$(BUILD_CMD)
@@ -30,6 +30,9 @@ lutris: net.lutris.Lutris.json
 
 transmission-remote-gnome:
 	$(BUILD_CMD_BASE) --from-git=https://github.com/TingPing/transmission-remote-gnome.git dist/flatpak/se.tingping.Trg.json
+
+irc-client:
+		$(BUILD_CMD_BASE) --from-git=https://github.com/TingPing/irc-client.git se.tingping.IrcClient.json
 
 sync: $(REPO)
 	flatpak build-update-repo --gpg-sign=$(GPG_KEYID) --generate-static-deltas $(REPO)
