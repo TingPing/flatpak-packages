@@ -32,7 +32,7 @@ transmission-remote-gnome:
 	$(BUILD_CMD_BASE) --from-git=https://github.com/TingPing/transmission-remote-gnome.git dist/flatpak/se.tingping.Trg.json
 
 irc-client:
-		$(BUILD_CMD_BASE) --from-git=https://github.com/TingPing/irc-client.git se.tingping.IrcClient.json
+		$(BUILD_CMD_BASE) --from-git=https://github.com/TingPing/irc-client.git dist/flatpak/se.tingping.IrcClient.json
 
 sync: $(REPO)
 	flatpak build-update-repo --gpg-sign=$(GPG_KEYID) --generate-static-deltas $(REPO)
