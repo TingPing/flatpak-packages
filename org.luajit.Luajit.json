@@ -1,7 +1,7 @@
 {
   "name": "luajit",
   "no-autogen": true,
-  "cleanup": [ "/bin", "/lib/*.a", "/include" ],
+  "cleanup": [ "/lib/*.a", "/include" ],
   "sources": [
     {
       "type": "archive",

@@ -38,18 +38,18 @@
       "modules": [
         {
           "name": "libmpv",
-          "cleanup": [ "/bin", "/share" ],
+          "cleanup": [ "/include", "/lib/pkgconfig" ],
           "buildsystem": "simple",
           "build-commands": [
-            "python2 waf configure --prefix=/app --enable-libmpv-shared",
-            "python2 waf build",
-            "python2 waf install"
+            "python3 waf configure --prefix=/app --enable-libmpv-shared --disable-cplayer --disable-build-date --disable-oss-audio --disable-alsa",
+            "python3 waf build",
+            "python3 waf install"
           ],
           "sources": [
             {
               "type": "archive",
-              "url": "https://github.com/mpv-player/mpv/archive/v0.25.0.tar.gz",
-              "sha256": "07423ffad6921ec4da32f703cd7fbfb27012301dcb736ac8542ac8e6083b0bce"
+              "url": "https://github.com/mpv-player/mpv/archive/v0.27.0.tar.gz",
+              "sha256": "341d8bf18b75c1f78d5b681480b5b7f5c8b87d97a0d4f53a5648ede9c219a49c"
             },
             {
               "type": "file",
@@ -63,6 +63,7 @@
             "org.luajit.Luajit.json",
             {
               "name": "libass",
+              "cleanup": [ "/include", "/lib/*.la", "/lib/pkgconfig" ],
               "config-opts": [ "--disable-static" ],
               "sources": [{
                 "type": "archive",
@@ -71,7 +72,7 @@
               }],
               "modules": [{
                 "name": "fribidi",
-                "cleanup": [ "/bin", "/include", "/lib/pkgconfig" ],
+                "cleanup": [ "/bin", "/include", "/lib/pkgconfig", "/lib/*.la", "/share/man" ],
                 "sources": [{
                   "type": "archive",
                   "url": "http://fribidi.org/download/fribidi-0.19.7.tar.bz2",
@@ -82,12 +83,12 @@
             {
               "name": "youtube-dl",
               "no-autogen": true,
-              "cleanup": [ "/man", "/share" ],
+              "cleanup": [ "/etc", "/man", "/share" ],
               "build-options": { "env": { "PREFIX": "/app" } },
               "sources": [{
                 "type": "archive",
-                "url": "https://github.com/rg3/youtube-dl/releases/download/2017.06.12/youtube-dl-2017.06.12.tar.gz",
-                "sha256": "3cacd4aaaffd07eecd54eaea84b2a0537df3e5fc7bd5cd3bc96fa34dc8438ddc"
+                "url": "https://github.com/rg3/youtube-dl/releases/download/2017.09.02/youtube-dl-2017.09.02.tar.gz",
+                "sha256": "699a7ca22243e6a11a3e3a2b4f933c1ec0799d205a58c1eb5b139ee53252d9e9"
               }]
             }
           ]

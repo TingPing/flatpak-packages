@@ -1,9 +1,11 @@
 {
   "app-id": "io.atom.Atom",
-  "runtime": "org.gnome.Sdk",
-  "runtime-version": "3.24",
+  "runtime": "org.freedesktop.Sdk",
+  "runtime-version": "1.6",
+  "base": "io.atom.electron.BaseApp",
+  "base-version": "stable",
   "branch": "beta",
-  "sdk": "org.gnome.Sdk",
+  "sdk": "org.freedesktop.Sdk",
   "command": "atom-beta",
   "rename-desktop-file": "atom-beta.desktop",
   "separate-locales": false,
@@ -41,8 +43,8 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://github.com/atom/atom/archive/v1.19.0-beta2.tar.gz",
-          "sha256": "2a8ded27ae9b95dbfc81b7b863028ffa3078d9665676fc35f2e18c16dd5422ae"
+          "url": "https://github.com/atom/atom/archive/v1.22.0-beta0.tar.gz",
+          "sha256": "0a83224fe14ec47ed6193b1398b380fdd742fb5209b7e3955aae19c326bfdd67"
         },
         {
           "type": "file",
@@ -70,53 +72,31 @@
           ]
         },
         {
-          "name": "udev",
-          "config-opts": [ "--disable-hwdb", "--disable-logging", "--disable-gudev",
-                           "--disable-introspection", "--disable-keymap", "--disable-mtd_probe"],
-          "cleanup": ["/share", "/include", "/bin", "/sbin"],
-          "sources": [
-            {
-              "type": "archive",
-              "url": "http://kernel.org/pub/linux/utils/kernel/hotplug/udev-175.tar.bz2",
-              "sha256": "4c7937fe5a1521316ea571188745b9a00a9fdf314228cffc53a7ba9e5968b7ab"
-            }
-          ]
-        },
-        {
-          "name": "gconf",
-          "config-opts": ["--disable-orbit", "--disable-static", "--disable-introspection",
-                          "--without-openldap"],
-          "cleanup": ["/bin", "/include", "/lib/pkgconfig", "/lib/*.la", "/share", "/etc"],
-          "sources": [
-            {
-                "type": "archive",
-                "url": "http://ftp.gnome.org/pub/GNOME/sources/GConf/3.2/GConf-3.2.6.tar.xz",
-                "sha256": "1912b91803ab09a5eed34d364bf09fe3a2a9c96751fde03a4e0cfa51a04d784c"
-            }
-          ]
-        },
-        {
-          "name": "libgnome-keyring",
-          "cleanup": ["/include", "/lib/pkgconfig", "/lib/*.la", "/share"],
-          "config-opts": [ "--disable-static", "--disable-gtk-doc", "--disable-coverage",
-                           "--disable-introspection" ],
-          "sources": [
-            {
-              "type": "archive",
-              "url": "https://download.gnome.org/sources/libgnome-keyring/3.12/libgnome-keyring-3.12.0.tar.xz",
-              "sha256": "c4c178fbb05f72acc484d22ddb0568f7532c409b0a13e06513ff54b91e947783"
-            },
-            {
-              "type": "patch",
-              "path": "libgnome-keyring-detect-gcrypt.patch"
-            },
-            {
-              "type": "shell",
-              "commands": [
-                  "autoreconf -fi"
-              ]
-            }
-          ]
+            "name": "libsecret",
+            "config-opts": [
+                "--disable-manpages",
+                "--disable-gtk-doc",
+                "--disable-static",
+                "--disable-introspection"
+            ],
+            "cleanup": [
+                "/bin",
+                "/include",
+                "/lib/pkgconfig",
+                "/share/gtk-doc",
+                "*.la"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ftp.gnome.org/pub/GNOME/sources/libsecret/0.18/libsecret-0.18.5.tar.xz",
+                    "sha256": "9ce7bd8dd5831f2786c935d82638ac428fa085057cc6780aba0e39375887ccb3"
+                },
+                {
+                    "type": "shell",
+                    "commands": ["autoreconf -f"]
+                }
+            ]
         },
         {
           "name": "xkbfile",
@@ -131,16 +111,6 @@
           ]
         }
       ]
-    },
-    {
-      "name": "gvfs-trash",
-      "buildsystem": "simple",
-      "build-commands": [ "install -m755 gvfs-trash /app/bin/gvfs-trash" ],
-      "sources": [{
-        "type": "script",
-        "dest-filename": "gvfs-trash",
-        "commands": ["exec rm -r \"$@\""]
-      }]
     }
   ]
 }
