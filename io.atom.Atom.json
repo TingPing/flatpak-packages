@@ -61,13 +61,18 @@
       "modules": [
         {
           "name": "nodejs",
-          "cleanup": ["/lib/node_modules/npm/docs", "/lib/node_modules/npm/changelogs",
-                      "/lib/node_modules/npm/html", "/lib/node_modules/npm/man"],
+          "cleanup": [
+            "/lib/node_modules/npm/docs",
+            "/lib/node_modules/npm/changelogs",
+            "/lib/node_modules/npm/html",
+            "/lib/node_modules/npm/man",
+            "/share"
+          ],
           "sources": [
             {
               "type": "archive",
-              "url": "https://nodejs.org/dist/v6.10.3/node-v6.10.3.tar.gz",
-              "sha256": "a8f679f595fd921305c28d126935ad59b4419ac8474a99997a31e01ab50acd3d"
+              "url": "https://nodejs.org/dist/v6.11.4/node-v6.11.4.tar.gz",
+              "sha256": "94557aa1b9adaa71a424eb7efe8877d7e65bda6e496350c4bac5f64ec715bb1c"
             }
           ]
         },
@@ -107,6 +112,102 @@
               "type": "archive",
               "url": "https://www.x.org/releases/individual/lib/libxkbfile-1.0.9.tar.bz2",
               "sha256": "51817e0530961975d9513b773960b4edd275f7d5c72293d5a151ed4f42aeb16a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pyls",
+      "buildsystem": "simple",
+      "build-commands": [
+        "python3 setup.py install --prefix=/app"
+      ],
+      "build-options": {
+        "build-args": [
+          "--share=network"
+        ]
+      },
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/palantir/python-language-server/archive/0.8.0.tar.gz",
+          "sha256": "b278c7fd4a2c34e0038ee1ec4c76e463f6361ba2b2d03666ad43ae33f862f209"
+        }
+      ]
+    },
+    {
+      "name": "clang",
+      "buildsystem": "cmake-ninja",
+      "builddir": true,
+      "cleanup": [
+        "/include",
+        "*.a",
+        "/lib/LLVMHello.so",
+        "/lib/cmake"
+      ],
+      "config-opts": [
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DFFI_INCLUDE_DIR=/usr/lib/libffi-3.2.1/include",
+        "-DCLANG_ENABLE_ARCMT:BOOL=ON",
+        "-DCLANG_ENABLE_STATIC_ANALYZER:BOOL=ON",
+        "-DCLANG_INCLUDE_DOCS:BOOL=OFF",
+        "-DCLANG_INCLUDE_TESTS:BOOL=OFF",
+        "-DCLANG_PLUGIN_SUPPORT:BOOL=ON",
+        "-DCLANG_BUILD_EXAMPLES:BOOL=OFF",
+        "-DLLVM_LIBDIR_SUFFIX=",
+        "-DLLVM_ENABLE_LIBCXX:BOOL=OFF",
+        "-DLLVM_ENABLE_ZLIB:BOOL=ON",
+        "-DLLVM_ENABLE_FFI:BOOL=ON",
+        "-DLLVM_ENABLE_RTTI:BOOL=ON",
+        "-DLLVM_BUILD_RUNTIME:BOOL=ON",
+        "-DLLVM_BUILD_TOOLS:BOOL=ON",
+        "-DLLVM_INCLUDE_TOOLS:BOOL=ON",
+        "-DLLVM_INCLUDE_TESTS:BOOL=OFF",
+        "-DLLVM_INCLUDE_EXAMPLES:BOOL=OFF",
+        "-DLLVM_INCLUDE_UTILS:BOOL=ON",
+        "-DLLVM_INSTALL_UTILS:BOOL=OFF",
+        "-DLLVM_INCLUDE_DOCS:BOOL=OFF",
+        "-DLLVM_ENABLE_DOXYGEN:BOOL=OFF",
+        "-DLLVM_BUILD_LLVM_DYLIB:BOOL=OFF",
+        "-DLLVM_BUILD_EXTERNAL_COMPILER_RT:BOOL=ON",
+        "-DLLVM_INSTALL_TOOLCHAIN_ONLY:BOOL=OFF",
+        "-DLLVM_TARGETS_TO_BUILD=X86"
+      ],
+      "sources": [
+          {
+            "type": "archive",
+            "url": "http://llvm.org/releases/5.0.0/llvm-5.0.0.src.tar.xz",
+            "sha256": "e35dcbae6084adcf4abb32514127c5eabd7d63b733852ccdb31e06f1373136da"
+          },
+          {
+            "type": "archive",
+            "url": "http://llvm.org/releases/5.0.0/cfe-5.0.0.src.tar.xz",
+            "sha256": "019f23c2192df793ac746595e94a403908749f8e0c484b403476d2611dd20970",
+            "dest": "tools/clang"
+          },
+          {
+            "type": "archive",
+            "url": "https://releases.llvm.org/5.0.0/clang-tools-extra-5.0.0.src.tar.xz",
+            "sha256": "87d078b959c4a6e5ff9fd137c2f477cadb1245f93812512996f73986a6d973c6",
+            "dest": "tools/clang/tools/extra"
+          }
+      ],
+      "modules": [
+        {
+          "name": "z3",
+          "buildsystem": "simple",
+          "build-commands": [
+            "python3 scripts/mk_make.py --prefix=/app",
+            "make -C build -j$(nproc)",
+            "make -C build install"
+          ],
+          "cleanup": ["/bin", "/include"],
+          "sources": [
+            {
+              "type": "archive",
+              "url": "https://github.com/Z3Prover/z3/archive/z3-4.5.0.tar.gz",
+              "sha256": "aeae1d239c5e06ac183be7dd853775b84698db1265cb2258e5918a28372d4a0c"
             }
           ]
         }
