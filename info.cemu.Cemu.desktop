@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Cemu
+Comment=Nintendo Wii-U emulator
+Exec=cemu
+Terminal=false

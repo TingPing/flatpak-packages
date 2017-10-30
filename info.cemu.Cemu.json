@@ -1,0 +1,140 @@
+{
+    "app-id": "info.cemu.Cemu",
+    "runtime": "org.freedesktop.Platform",
+    "sdk": "org.freedesktop.Sdk",
+    "runtime-version": "1.6",
+    "command": "cemu",
+    "finish-args": [
+        "--device=dri",
+        "--socket=x11",
+        "--socket=pulseaudio",
+        "--filesystem=home:ro"
+    ],
+    "modules": [
+        {
+            "name": "wine-staging",
+            "make-install-args": [
+              "libdir=/app/lib",
+              "dlldir=/app/lib/wine"
+            ],
+            "config-opts": [
+                "--libdir=/app/lib",
+                "--enable-win64",
+                "--disable-win16",
+                "--with-x",
+                "--without-alsa",
+                "--without-cups",
+                "--without-curses",
+                "--without-capi",
+                "--without-glu",
+                "--without-gphoto",
+                "--without-gstreamer",
+                "--without-gsm",
+                "--without-hal",
+                "--without-jpeg",
+                "--without-ldap",
+                "--without-mpg123",
+                "--without-netapi",
+                "--without-opencl",
+                "--without-osmesa",
+                "--without-oss",
+                "--without-sane",
+                "--without-tiff",
+                "--without-pcap",
+                "--without-udev",
+                "--without-v4l"
+            ],
+            "cleanup": [
+                "/bin/function_grep.pl",
+                "/bin/msiexec",
+                "/bin/regedit",
+                "/bin/widl",
+                "/bin/wine64-preloader",
+                "/bin/winebuild",
+                "/bin/wineconsole",
+                "/bin/winedbg",
+                "/bin/winefile",
+                "/bin/winegcc",
+                "/bin/winemine",
+                "/bin/wrc",
+                "/bin/msidb",
+                "/bin/notepad",
+                "/bin/regsvr32",
+                "/bin/wineboot",
+                "/bin/winecfg",
+                "/bin/winecpp",
+                "/bin/winedump",
+                "/bin/wineg++",
+                "/bin/winemaker",
+                "/bin/winepath",
+                "/bin/wmc",
+                "/include",
+                "/share/man",
+                "/share/applications"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/wine-compholio/wine-patched/archive/staging-2.19.tar.gz",
+                    "sha256": "adda453609ee54b178152a730ef4656fd922128dd7064b8cffd9195c51508014"
+                }
+            ]
+        },
+        {
+            "name": "cemu",
+            "buildsystem": "simple",
+            "build-commands": [
+                "install apply_extra /app/bin",
+                "install cemu /app/bin",
+                "install /usr/bin/unzip /app/bin",
+                "install -Dm644 info.cemu.Cemu.appdata.xml /app/share/appdata/info.cemu.Cemu.appdata.xml",
+                "cp info.cemu.Cemu.desktop /app/share"
+            ],
+            "sources": [
+                {
+                    "type": "script",
+                    "dest-filename": "apply_extra",
+                    "commands": [
+                      "unzip -qq cemu.zip ",
+                      "rm cemu.zip",
+                      "mv cemu_* cemu",
+                      "mkdir -p export/share/icons/hicolor/256x256/apps",
+                      "mv info.cemu.Cemu.png export/share/icons/hicolor/256x256/apps",
+                      "mkdir -p export/share/applications",
+                      "cp /app/share/info.cemu.Cemu.desktop export/share/applications",
+                      "echo 'Icon=info.cemu.Cemu' >> export/share/applications/info.cemu.Cemu.desktop"
+                    ]
+                },
+                {
+                    "type": "script",
+                    "dest-filename": "cemu",
+                    "commands": [
+                      "exec env WINEDLLOVERRIDES=\"mscoree,mshtml=\" WINEPREFIX=\"$XDG_DATA_HOME/wine\" /app/bin/wine64 /app/extra/cemu/Cemu.exe \"$@\""
+                    ]
+                },
+                {
+                    "type": "extra-data",
+                    "url": "http://cemu.info/releases/cemu_1.10.0.zip",
+                    "size": 3034951,
+                    "sha256": "52ec1c00835dba034e92e5ed75f31419ce5489215f4ae289b8970978773f484a",
+                    "filename": "cemu.zip"
+                },
+                {
+                    "type": "extra-data",
+                    "url": "http://compat.cemu.info/w/CemuLogo2.png",
+                    "sha256": "5e940a5430a25096162be5bcf112e600c1a6b7f3fc916d7a1b666bfec3c5fd4c",
+                    "size": 39825,
+                    "filename": "info.cemu.Cemu.png"
+                },
+                {
+                    "type": "file",
+                    "path": "info.cemu.Cemu.appdata.xml"
+                },
+                {
+                    "type": "file",
+                    "path": "info.cemu.Cemu.desktop"
+                }
+            ]
+        }
+    ]
+}

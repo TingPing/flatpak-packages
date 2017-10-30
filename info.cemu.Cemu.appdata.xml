@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+  <id type="desktop">info.cemu.Cemu.desktop</id>
+  <name>Cemu</name>
+  <summary>A Nintendo Wii-U emulator</summary>
+  <categories>
+    <category>Game</category>
+    <category>Emulator</category>
+  </categories>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LicenseRef-proprietary</project_license>
+  <url type="homepage">http://cemu.info</url>
+  <icon type="remote" height="375" width="375">http://compat.cemu.info/w/CemuLogo2.png</icon>
+</application>

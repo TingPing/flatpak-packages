@@ -25,6 +25,9 @@ gnome-twitch: com.vinszent.GnomeTwitch.json
 atom: io.atom.Atom.json
 	$(BUILD_CMD)
 
+cemu: info.cemu.Cemu.json
+	$(BUILD_CMD)
+
 lutris: net.lutris.Lutris.json
 	$(BUILD_CMD)
 
