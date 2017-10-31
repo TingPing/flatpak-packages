@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+  <id type="desktop">org.citra_emu.Citra.desktop</id>
+  <name>Citra</name>
+  <summary>A Nintendo 3DS emulator</summary>
+  <categories>
+    <category>Game</category>
+    <category>Emulator</category>
+  </categories>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0</project_license>
+  <url type="homepage">https://citra-emu.org/</url>
+</application>

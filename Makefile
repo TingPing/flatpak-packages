@@ -31,6 +31,9 @@ cemu: info.cemu.Cemu.json
 rpcs3: net.rpcs3.RPCS3.json
 	$(BUILD_CMD)
 
+citra: org.citra_emu.Citra.json
+	$(BUILD_CMD)
+
 lutris: net.lutris.Lutris.json
 	$(BUILD_CMD)
 
