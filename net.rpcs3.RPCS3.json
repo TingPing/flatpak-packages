@@ -1,0 +1,60 @@
+{
+  "app-id": "net.rpcs3.RPCS3",
+  "runtime": "org.kde.Platform",
+  "runtime-version": "5.9",
+  "sdk": "org.kde.Sdk",
+  "command": "rpcs3",
+  "rename-desktop-file": "rpcs3.desktop",
+  "rename-icon": "rpcs3",
+  "finish-args": [
+    "--device=dri",
+    "--filesystem=host:ro",
+    "--socket=pulseaudio",
+    "--socket=x11",
+    "--env=QT_QPA_PLATFORM=flatpak",
+    "--env=QT_QPA_FLATPAK_PLATFORM=xcb"
+  ],
+  "modules": [
+    {
+      "name": "rpcs3",
+      "buildsystem": "cmake-ninja",
+      "builddir": true,
+      "config-opts": [
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DUSE_SYSTEM_LIBPNG=ON"
+      ],
+      "post-install": [
+        "install -Dm644 ../net.rpcs3.RPCS3.appdata.xml /app/share/appdata/net.rpcs3.RPCS3.appdata.xml"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/RPCS3/rpcs3.git"
+        },
+        {
+          "type": "file",
+          "path": "net.rpcs3.RPCS3.appdata.xml"
+        }
+      ],
+      "modules": [
+        "shared-modules/glu/glu-9.0.0.json",
+        "shared-modules/glew/glew-2.0.0.json",
+        "shared-modules/udev/udev-175.json",
+        {
+          "name": "openal",
+          "buildsystem": "cmake-ninja",
+          "builddir": true,
+          "config-opts": [ "-DCMAKE_BUILD_TYPE=Release" ],
+          "cleanup": [ "/bin", "/include", "/lib/pkgconfig", "/share" ],
+          "sources": [
+            {
+              "type": "archive",
+              "url": "http://kcat.strangesoft.net/openal-releases/openal-soft-1.17.2.tar.bz2",
+              "sha256": "a341f8542f1f0b8c65241a17da13d073f18ec06658e1a1606a8ecc8bbc2b3314"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

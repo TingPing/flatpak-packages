@@ -28,6 +28,9 @@ atom: io.atom.Atom.json
 cemu: info.cemu.Cemu.json
 	$(BUILD_CMD)
 
+rpcs3: net.rpcs3.RPCS3.json
+	$(BUILD_CMD)
+
 lutris: net.lutris.Lutris.json
 	$(BUILD_CMD)
 
