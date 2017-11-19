@@ -20,8 +20,7 @@
       "buildsystem": "meson",
       "builddir": true,
       "config-opts": [
-        "-Dwith-perl=false",
-        "-Dwith-sysinfo=false"
+        "-Dwith-perl=false"
       ],
       "post-install": [
         "mv /app/share/dbus-1/services/{org.hexchat.service,io.github.Hexchat}.service"
