@@ -22,9 +22,6 @@ transmission-remote-gtk: io.github.TransmissionRemoteGtk.json
 gnome-twitch: com.vinszent.GnomeTwitch.json
 	$(BUILD_CMD)
 
-atom: io.atom.Atom.json
-	$(BUILD_CMD)
-
 cemu: info.cemu.Cemu.json
 	$(BUILD_CMD)
 
