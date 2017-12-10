@@ -10,9 +10,8 @@
         "--device=dri",
         "--socket=x11",
         "--socket=pulseaudio",
-        "--filesystem=home:ro",
-        "--env=QT_QPA_PLATFORM=flatpak",
-        "--env=QT_QPA_FLATPAK_PLATFORM=xcb"
+        "--share=ipc",
+        "--filesystem=host:ro"
     ],
     "modules": [
         {
