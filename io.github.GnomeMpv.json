@@ -1,7 +1,7 @@
 {
   "app-id": "io.github.GnomeMpv",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "3.24",
+  "runtime-version": "3.26",
   "sdk": "org.gnome.Sdk",
   "command": "gnome-mpv",
   "rename-icon": "gnome-mpv",
@@ -47,9 +47,8 @@
           ],
           "sources": [
             {
-              "type": "archive",
-              "url": "https://github.com/mpv-player/mpv/archive/v0.27.0.tar.gz",
-              "sha256": "341d8bf18b75c1f78d5b681480b5b7f5c8b87d97a0d4f53a5648ede9c219a49c"
+              "type": "git",
+              "url": "https://github.com/mpv-player/mpv.git"
             },
             {
               "type": "file",
@@ -59,8 +58,25 @@
             }
           ],
           "modules": [
-            "org.ffmpeg.FFmpeg.json",
             "org.luajit.Luajit.json",
+            {
+              "name": "ffmpeg",
+              "cleanup": [ "/include", "/lib/pkgconfig", "/share/ffmpeg/examples" ],
+              "config-opts": [
+                "--enable-shared",
+                "--disable-static",
+                "--enable-gnutls",
+                "--disable-doc",
+                "--disable-programs",
+                "--disable-encoders",
+                "--disable-muxers",
+                "--disable-devices"
+              ],
+              "sources": [{
+                "type": "git",
+                "url": "https://github.com/FFmpeg/FFmpeg.git"
+              }]
+            },
             {
               "name": "libass",
               "cleanup": [ "/include", "/lib/*.la", "/lib/pkgconfig" ],
@@ -82,13 +98,14 @@
             },
             {
               "name": "youtube-dl",
-              "no-autogen": true,
-              "cleanup": [ "/etc", "/man", "/share" ],
-              "build-options": { "env": { "PREFIX": "/app" } },
+              "buildsystem": "simple",
+              "build-commands": [
+                "make youtube-dl",
+                "install -Dm755 youtube-dl /app/bin/youtube-dl"
+              ],
               "sources": [{
-                "type": "archive",
-                "url": "https://github.com/rg3/youtube-dl/releases/download/2017.09.02/youtube-dl-2017.09.02.tar.gz",
-                "sha256": "699a7ca22243e6a11a3e3a2b4f933c1ec0799d205a58c1eb5b139ee53252d9e9"
+                "type": "git",
+                "url": "https://github.com/rg3/youtube-dl.git"
               }]
             }
           ]
