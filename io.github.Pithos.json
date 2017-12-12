@@ -1,7 +1,7 @@
 {
   "app-id": "io.github.Pithos",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "3.24",
+  "runtime-version": "3.26",
   "sdk": "org.gnome.Sdk",
   "command": "pithos",
   "finish-args": [
@@ -12,10 +12,7 @@
     "--socket=pulseaudio",
 
     "--env=SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
-
     "--env=GST_PLUGIN_PATH_1_0=/app/lib/gstreamer-1.0",
-    "--talk-name=org.gtk.vfs",
-    "--talk-name=org.gtk.vfs.*",
 
     "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
     "--filesystem=xdg-run/dconf",
@@ -40,16 +37,38 @@
     "--own-name=org.mpris.MediaPlayer2.pithos"
   ],
   "modules": [
+    "libappindicator.json",
     {
-      "name": "gst-libav",
-      "config-opts": [ "--disable-gtk-doc", "--with-system-libav" ],
-      "cleanup": [ "*.la", "/share/gtk-doc" ],
+      "name": "gst-plugins-bad",
+      "buildsystem": "simple",
+      "build-commands": [
+        "meson _build --prefix=/app --libdir=lib",
+        "ninja -C _build ext/faad/libgstfaad.so",
+        "install -Dm644 --target-directory=/app/lib/gstreamer-1.0 _build/ext/faad/libgstfaad.so"
+      ],
       "sources": [{
         "type": "archive",
-        "url": "https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-1.8.3.tar.xz",
-        "sha256": "9006a05990089f7155ee0e848042f6bb24e52ab1d0a59ff8d1b5d7e33001a495"
+        "url": "http://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-1.12.2.tar.xz",
+        "sha256": "9c2c7edde4f59d74eb414e0701c55131f562e5c605a3ce9b091754f106c09e37"
       }],
-      "modules": [ "org.ffmpeg.FFmpeg.json" ]
+      "modules": [{
+        "name": "faad",
+        "cleanup": [ "/bin", "/include", "/share", "/lib/*.la" ],
+        "config-opts": [ "--disable-static", "--without-drm" ],
+        "post-install": [ "rm /app/lib/libfaad_drm*" ],
+        "sources": [
+          {
+            "type": "archive",
+            "url": "http://downloads.sourceforge.net/sourceforge/faac/faad2-2.8.1.tar.gz",
+            "sha256": "133270a9be0c9ab8fea18017703ab4a94f9eddbb45a8aa6a511a1469fa413591"
+          },
+          {
+            "type": "script",
+            "dest-filename": "autogen.sh",
+            "commands": [ "exec ./bootstrap \"$@\"" ]
+          }
+        ]}
+      ]
     },
     {
       "name": "pylast",
@@ -76,69 +95,23 @@
       }]
     },
     {
-      "name": "libappindicator",
-      "rm-configure": true,
-      "config-opts": ["--with-gtk=3", "--disable-static", "--disable-tests", "--disable-gtk-doc-html"],
-      "cleanup": ["/include", "/lib/*.la", "/lib/pkgconfig", "/libexec", "/share"],
-      "sources": [
-        {
-          "type": "archive",
-          "url": "https://launchpad.net/libappindicator/12.10/12.10.0/+download/libappindicator-12.10.0.tar.gz",
-          "sha256": "d5907c1f98084acf28fd19593cb70672caa0ca1cf82d747ba6f4830d4cc3b49f"
-        },
-        {
-          "type": "patch",
-          "path": "appindicator-rip-build-system-apart.patch"
-        }
-      ],
-      "modules": [
-        {
-          "name": "libindicator",
-          "config-opts": ["--with-gtk=3", "--disable-static", "--disable-tests"],
-          "cleanup": ["/include", "/lib/*.la", "/lib/pkgconfig", "/libexec", "/share"],
-          "sources": [
-            {
-              "type": "archive",
-              "url": "https://launchpad.net/libindicator/12.10/12.10.1/+download/libindicator-12.10.1.tar.gz",
-              "sha256": "b2d2e44c10313d5c9cd60db455d520f80b36dc39562df079a3f29495e8f9447f"
-            },
-            {
-              "type": "shell",
-              "commands": [
-                "sed 's/gtk_icon_info_free/g_object_unref/' -i libindicator/indicator-image-helper.c",
-                "sed 's/LIBS=\"-lm  $LIBS\"/LIBS=\" -lm  $LIBS\"/g' -i configure",
-                "sed 's/LIBM=\"-lm\"/LIBM=\" -lm\"/g' -i configure"
-              ]
-            }
-          ]
-        },
-        {
-          "name": "libdbusmenu",
-          "config-opts": ["--with-gtk=3", "--disable-static", "--disable-tests"],
-          "cleanup": ["/include", "/lib/*.la", "/lib/pkgconfig", "/libexec", "/share"],
-          "build-options": {
-            "env": {
-              "HAVE_VALGRIND_FALSE": "'1'",
-              "HAVE_VALGRIND_TRUE": "''",
-              "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR": "/app/share/gir-1.0",
-              "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR": "/app/lib/girepository-1.0"
-            }
-          },
-          "sources": [{
-            "type": "archive",
-            "url": "https://launchpad.net/libdbusmenu/16.04/16.04.0/+download/libdbusmenu-16.04.0.tar.gz",
-            "sha256": "b9cc4a2acd74509435892823607d966d424bd9ad5d0b00938f27240a1bfa878a"
-          }]
-        }
-      ]
+      "name": "keybinder",
+      "cleanup": ["/lib/*.la", "/include", "/share", "/lib/pkgconfig"],
+      "sources": [{
+        "type": "archive",
+        "url": "https://github.com/kupferlauncher/keybinder/releases/download/keybinder-3.0-v0.3.2/keybinder-3.0-0.3.2.tar.gz",
+        "sha256": "e6e3de4e1f3b201814a956ab8f16dfc8a262db1937ff1eee4d855365398c6020"
+      }]
     },
     {
       "name": "pithos",
       "buildsystem": "meson",
-      "sources": [{
-        "type": "git",
-        "url": "https://github.com/pithos/pithos.git"
-      }]
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/pithos/pithos.git"
+        }
+      ]
     }
   ]
 }
