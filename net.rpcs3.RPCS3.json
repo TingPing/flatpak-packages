@@ -27,7 +27,8 @@
       "sources": [
         {
           "type": "git",
-          "url": "https://github.com/RPCS3/rpcs3.git"
+          "url": "https://github.com/RPCS3/rpcs3.git",
+          "disable-shallow-clone": true
         },
         {
           "type": "file",
