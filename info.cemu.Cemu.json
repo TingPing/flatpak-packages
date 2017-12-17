@@ -122,7 +122,7 @@
                 {
                     "type": "extra-data",
                     "url": "http://compat.cemu.info/w/CemuLogo2.png",
-                    "sha256": "5e940a5430a25096162be5bcf112e600c1a6b7f3fc916d7a1b666bfec3c5fd4c",
+                    "sha256": "fba479caf82db0fb00cba5bdde7e1bde1847dd555e44475a9b50b2ad4002b7c9",
                     "size": 39825,
                     "filename": "info.cemu.Cemu.png"
                 },
