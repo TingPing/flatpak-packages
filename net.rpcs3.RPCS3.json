@@ -7,7 +7,7 @@
   "rename-desktop-file": "rpcs3.desktop",
   "rename-icon": "rpcs3",
   "finish-args": [
-    "--device=dri",
+    "--device=all",
     "--filesystem=host:ro",
     "--socket=pulseaudio",
     "--socket=x11"
@@ -19,6 +19,7 @@
       "builddir": true,
       "config-opts": [
         "-DCMAKE_BUILD_TYPE=Release",
+        "-DUSE_ALSA=OFF",
         "-DUSE_SYSTEM_LIBPNG=ON"
       ],
       "post-install": [
@@ -50,6 +51,18 @@
               "type": "archive",
               "url": "http://kcat.strangesoft.net/openal-releases/openal-soft-1.17.2.tar.bz2",
               "sha256": "a341f8542f1f0b8c65241a17da13d073f18ec06658e1a1606a8ecc8bbc2b3314"
+            }
+          ]
+        },
+        {
+          "name": "evdev",
+          "config-opts": ["--disable-static"],
+          "cleanup": [ "/bin", "/include", "/lib/pkgconfig", "/lib/*.la", "/share/man" ],
+          "sources": [
+            {
+              "type": "archive",
+              "url": "https://freedesktop.org/software/libevdev/libevdev-1.5.7.tar.xz",
+              "sha256": "a1e59e37a2f0d397ffd7e83b73af0e638db83b8dd08902ef0f651a21cc1dd422"
             }
           ]
         }
