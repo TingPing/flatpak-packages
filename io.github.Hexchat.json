@@ -4,15 +4,12 @@
   "runtime-version": "3.26",
   "sdk": "org.gnome.Sdk",
   "command": "hexchat",
-  "rename-desktop-file": "hexchat.desktop",
-  "rename-appdata-file": "hexchat.appdata.xml",
   "rename-icon": "hexchat",
   "finish-args": [
     "--share=ipc",
     "--socket=x11",
     "--socket=session-bus",
-    "--share=network",
-    "--env=SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
+    "--share=network"
   ],
   "modules": [
     {
@@ -32,11 +29,13 @@
         },
         {
           "type": "patch",
-          "path": "hexchat-notification-appid.patch"
+          "path": "hexchat-dbus-service-name.patch"
         },
         {
-          "type": "patch",
-          "path": "hexchat-dbus-service-name.patch"
+          "type": "shell",
+          "commands": [
+            "sed -i 's/\"hexchat\"/\"io.github.Hexchat\"/' src/fe-gtk/notifications/notification-libnotify.c"
+          ]
         }
       ],
       "modules": [
