@@ -4,8 +4,6 @@
   "runtime-version": "3.26",
   "sdk": "org.gnome.Sdk",
   "command": "gnome-mpv",
-  "rename-icon": "gnome-mpv",
-  "copy-icon": true,
   "finish-args": [
       "--share=ipc",
       "--socket=x11",
@@ -22,13 +20,16 @@
       "--filesystem=~/.config/dconf:ro",
       "--talk-name=ca.desrt.dconf",
       "--own-name=org.mpris.MediaPlayer2.GnomeMpv.*",
-      "--env=SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
+      "--env=SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
+      "--env=LC_NUMERIC=C"
   ],
   "modules": [
     {
       "name": "gnome-mpv",
       "buildsystem": "meson",
-      "builddir": true,
+      "config-opts": [
+        "--buildtype=release"
+      ],
       "sources": [
         {
           "type": "git",
@@ -106,6 +107,25 @@
               "sources": [{
                 "type": "git",
                 "url": "https://github.com/rg3/youtube-dl.git"
+              }]
+            },
+            {
+              "name": "uchardet",
+              "buildsystem": "cmake-ninja",
+              "config-opts": [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DBUILD_STATIC=0"
+              ],
+              "cleanup": [
+                "/bin",
+                "/include",
+                "/lib/pkgconfig",
+                "/share/man"
+              ],
+              "sources": [{
+                "type": "archive",
+                "url": "https://www.freedesktop.org/software/uchardet/releases/uchardet-0.0.6.tar.xz",
+                "sha256": "8351328cdfbcb2432e63938721dd781eb8c11ebc56e3a89d0f84576b96002c61"
               }]
             }
           ]
