@@ -31,12 +31,6 @@
         {
           "type": "patch",
           "path": "hexchat-dbus-service-name.patch"
-        },
-        {
-          "type": "shell",
-          "commands": [
-            "sed -i 's/\"hexchat\"/\"io.github.Hexchat\"/' src/fe-gtk/notifications/notification-libnotify.c"
-          ]
         }
       ],
       "modules": [
