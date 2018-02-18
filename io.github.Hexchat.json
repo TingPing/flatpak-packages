@@ -18,19 +18,13 @@
       "builddir": true,
       "config-opts": [
         "--buildtype=release",
+        "-Ddbus-service-use-appid=true",
         "-Dwith-perl=false"
-      ],
-      "post-install": [
-        "mv /app/share/dbus-1/services/{org.hexchat.service,io.github.Hexchat}.service"
       ],
       "sources": [
         {
           "type": "git",
           "url": "https://github.com/hexchat/hexchat.git"
-        },
-        {
-          "type": "patch",
-          "path": "hexchat-dbus-service-name.patch"
         }
       ],
       "modules": [
