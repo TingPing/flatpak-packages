@@ -1,0 +1,63 @@
+{
+  "app-id": "com.vinszent.GnomeTwitch",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "3.24",
+  "sdk": "org.gnome.Sdk",
+  "command": "gnome-twitch",
+  "finish-args": [
+    "--share=ipc",
+    "--share=network",
+    "--socket=x11",
+    "--socket=wayland",
+    "--socket=pulseaudio",
+
+    "--env=GST_PLUGIN_PATH_1_0=/app/lib/gstreamer-1.0",
+    "--env=SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
+
+    "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
+    "--filesystem=xdg-run/dconf",
+    "--filesystem=~/.config/dconf:ro",
+    "--talk-name=ca.desrt.dconf"
+  ],
+  "modules": [
+    {
+      "name": "gst-libav",
+      "config-opts": [ "--disable-gtk-doc", "--with-system-libav" ],
+      "cleanup": [ "*.la", "/share/gtk-doc" ],
+      "sources": [{
+        "type": "archive",
+        "url": "https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-1.8.3.tar.xz",
+        "sha256": "9006a05990089f7155ee0e848042f6bb24e52ab1d0a59ff8d1b5d7e33001a495"
+      }],
+      "modules": [ "org.ffmpeg.FFmpeg.json" ]
+    },
+    {
+      "name": "gnome-twitch",
+      "buildsystem": "meson",
+      "config-opts": [ "--buildtype=release" ],
+      "builddir": true,
+      "config-opts": [
+        "-Dbuild-player-backends=gstreamer-cairo,gstreamer-opengl",
+        "--buildtype=release", "--libdir=lib"
+      ],
+      "cleanup": [ "/include" ],
+      "sources": [{
+        "type": "git",
+        "url": "https://github.com/vinszent/gnome-twitch.git"
+      }],
+      "modules": [
+        {
+          "name": "libpeas",
+          "config-opts": [ "--disable-gtk-doc", "--disable-python2", "--disable-python3" ],
+          "cleanup": [ "/bin/*", "/lib/peas-demo", "/include", "/lib/girepository-1.0",
+                       "/lib/*.la", "/lib/pkgconfig", "/share/gir-1.0", "/share/gtk-doc" ],
+          "sources": [{
+            "type": "archive",
+            "url": "https://download.gnome.org/sources/libpeas/1.20/libpeas-1.20.0.tar.xz",
+            "sha256": "f392fffe2dc00072a51bb2a1b274224a06bdc5f9c3b3c0ac4816909e9933d354"
+          }]
+        }
+      ]
+    }
+  ]
+}
