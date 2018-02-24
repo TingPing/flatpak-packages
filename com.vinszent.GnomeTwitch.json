@@ -1,7 +1,7 @@
 {
   "app-id": "com.vinszent.GnomeTwitch",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "3.24",
+  "runtime-version": "3.26",
   "sdk": "org.gnome.Sdk",
   "command": "gnome-twitch",
   "finish-args": [
@@ -26,21 +26,47 @@
       "cleanup": [ "*.la", "/share/gtk-doc" ],
       "sources": [{
         "type": "archive",
-        "url": "https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-1.8.3.tar.xz",
-        "sha256": "9006a05990089f7155ee0e848042f6bb24e52ab1d0a59ff8d1b5d7e33001a495"
+        "url": "https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-1.12.4.tar.xz",
+        "sha256": "2a56aa5d2d8cd912f2bce17f174713d2c417ca298f1f9c28ee66d4aa1e1d9e62"
       }],
-      "modules": [ "org.ffmpeg.FFmpeg.json" ]
+      "modules": [
+        {
+          "name": "ffmpeg",
+          "cleanup": [ "/include", "/lib/pkgconfig", "/share" ],
+          "config-opts": [
+            "--disable-all",
+            "--enable-shared",
+            "--disable-static",
+            "--enable-gnutls",
+            "--enable-avfilter",
+            "--enable-avcodec",
+            "--enable-avformat",
+            "--enable-swscale",
+            "--enable-hwaccels",
+            "--enable-decoder=h264",
+            "--enable-decoder=aac"
+          ],
+          "sources": [{
+            "type": "archive",
+            "url": "https://ffmpeg.org/releases/ffmpeg-3.4.1.tar.xz",
+            "sha256": "5a77278a63741efa74e26bf197b9bb09ac6381b9757391b922407210f0f991c0"
+          }]
+        }
+      ]
     },
     {
       "name": "gnome-twitch",
       "buildsystem": "meson",
-      "config-opts": [ "--buildtype=release" ],
-      "builddir": true,
       "config-opts": [
         "-Dbuild-player-backends=gstreamer-cairo,gstreamer-opengl",
-        "--buildtype=release", "--libdir=lib"
+        "--buildtype=release"
       ],
-      "cleanup": [ "/include" ],
+      "cleanup": [
+        "/include",
+        "/lib/girepository-1.0",
+        "/lib/pkgconfig",
+        "/share/gir-1.0"
+      ],
       "sources": [{
         "type": "git",
         "url": "https://github.com/vinszent/gnome-twitch.git"
