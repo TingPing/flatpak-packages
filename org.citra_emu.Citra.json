@@ -6,6 +6,15 @@
     "command": "citra-qt",
     "rename-desktop-file": "citra.desktop",
     "rename-icon": "citra",
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.gcc7"
+    ],
+    "build-options": {
+        "env": {
+            "CC": "/usr/lib/sdk/gcc7/bin/gcc",
+            "CXX": "/usr/lib/sdk/gcc7/bin/g++"
+        }
+    },
     "finish-args": [
         "--device=dri",
         "--socket=x11",
@@ -45,7 +54,8 @@
                 "install -Dm644 ../dist/citra.svg /app/share/icons/hicolor/scalable/apps/citra.svg",
                 "install -Dm644 ../dist/icon.png /app/share/icons/hicolor/512x512/apps/citra.png",
                 "mv /app/share/mime/packages/citra.xml /app/share/mime/packages/org.citra_emu.Citra.xml",
-                "sed 's/citra/org.citra_emu.Citra/g' -i /app/share/mime/packages/org.citra_emu.Citra.xml"
+                "sed 's/citra/org.citra_emu.Citra/g' -i /app/share/mime/packages/org.citra_emu.Citra.xml",
+                "install -m644 --target-directory=/app/lib /usr/lib/sdk/gcc7/lib/libstdc++.so*"
             ],
             "sources": [
                 {
