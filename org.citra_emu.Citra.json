@@ -16,7 +16,7 @@
         }
     },
     "finish-args": [
-        "--device=dri",
+        "--device=all",
         "--socket=x11",
         "--socket=pulseaudio",
         "--share=ipc",
