@@ -48,8 +48,8 @@
       ],
       "sources": [{
         "type": "archive",
-        "url": "https://pypi.python.org/packages/0c/53/f9eb749a2625f45bbc26127c7ee7e4c0eb5d7e4f20f55055a5fb419c27ad/evdev-0.6.4.tar.gz",
-        "sha256": "5268744d8493c273614036cf6423fa175952c64fc1d8d265210e48a4437a6af2"
+        "url": "https://pypi.python.org/packages/67/15/eac376f3e1fc1960a54439c21459b2582e68340001aff83b4ace9e5bd110/evdev-0.7.0.tar.gz",
+        "sha256": "57edafc469a414f58b51af1bfb9ee2babb9f626dd2df530d71c1176871850aa1"
       }]
     },
     {
