@@ -19,6 +19,7 @@
         "--device=all",
         "--socket=x11",
         "--socket=pulseaudio",
+        "--share=network",
         "--share=ipc",
         "--filesystem=xdg-config/citra-emu:create",
         "--filesystem=xdg-data/citra-emu:create",
