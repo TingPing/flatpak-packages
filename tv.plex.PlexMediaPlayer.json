@@ -1,0 +1,176 @@
+{
+  "app-id": "tv.plex.PlexMediaPlayer",
+  "runtime": "org.kde.Platform",
+  "runtime-version": "5.9",
+  "sdk": "org.kde.Sdk",
+  "command": "plexmediaplayer",
+  "finish-args": [
+      "--socket=x11",
+      "--device=dri",
+      "--share=ipc",
+      "--share=network",
+      "--socket=pulseaudio",
+      "--filesystem=xdg-videos:ro",
+      "--filesystem=xdg-music:ro",
+      "--filesystem=xdg-pictures:ro",
+      "--system-talk-name=org.freedesktop.login1"
+  ],
+  "modules": [
+    {
+      "name": "plex-media-player",
+      "buildsystem": "cmake-ninja",
+      "config-opts": [
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DQTROOT=/usr"
+      ],
+      "post-install": [
+        "install -Dm644 tv.plex.PlexMediaPlayer.appdata.xml /app/share/metainfo/tv.plex.PlexMediaPlayer.appdata.xml",
+        "install -Dm644 resources/images/icon.png /app/share/icons/hicolor/256x256/apps/tv.plex.PlexMediaPlayer.png",
+        "install -Dm644 tv.plex.PlexMediaPlayer.desktop /app/share/applications/tv.plex.PlexMediaPlayer.desktop"
+      ],
+      "cleanup": [
+        "/resources"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/plexinc/plex-media-player/archive/v2.8.0.813-6e77dc0c.tar.gz",
+          "sha256": "27532ad6c5d7911f852c8638c5a293105c1f8dc13c385d1f4f337701c3f9c589"
+        },
+        {
+          "type": "file",
+          "url": "https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/web-client-desktop-3.44.1-8883bd1.tar.xz",
+          "sha256": "ac0c478bd1c04b0cd9f2ac40548d5991effa53766c7104dfd72b82e52705d48f",
+          "dest": "dependencies"
+        },
+        {
+          "type": "file",
+          "url": "https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/web-client-desktop-3.44.1-8883bd1.tar.xz.sha1",
+          "sha256": "36b1c61936632dbfdc1614282d41dbf54cbc5f1d88d0839cd07cd0df13611341",
+          "dest": "dependencies"
+        },
+        {
+          "type": "file",
+          "url": "https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/web-client-tv-3.45.2-fea0860.tar.xz",
+          "sha256": "34ed6ab2f6736da10f2e8cf906596b9ad670f2707c9986b2021507046a6b1371",
+          "dest": "dependencies"
+        },
+        {
+          "type": "file",
+          "url": "https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/web-client-tv-3.45.2-fea0860.tar.xz.sha1",
+          "sha256": "33bc79dad202f674afabb1463815b82a566f5073e42672ad902e2d7f0310ff3d",
+          "dest": "dependencies"
+        },
+        {
+          "type": "file",
+          "url": "https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/buildid.cmake",
+          "sha256": "591b0a7f4c3c3324d73acbc3ba54fec8a2d078c79602abe2b1e3c66e8484facb",
+          "dest-filename": "buildid-25-fea08608883bd1.cmake",
+          "dest": "dependencies"
+        },
+        {
+          "type": "file",
+          "path": "tv.plex.PlexMediaPlayer.appdata.xml"
+        },
+        {
+          "type": "file",
+          "path": "tv.plex.PlexMediaPlayer.desktop"
+        }
+      ],
+      "modules": [
+        {
+          "name": "libmpv",
+          "cleanup": [ "/bin", "/share", "/include", "/lib/pkgconfig" ],
+          "buildsystem": "simple",
+          "build-commands": [
+            "python3 waf configure --prefix=/app --enable-libmpv-shared --disable-cplayer --disable-build-date --disable-oss-audio --disable-alsa",
+            "python3 waf build",
+            "python3 waf install"
+          ],
+          "sources": [
+            {
+              "type": "archive",
+              "url": "https://github.com/mpv-player/mpv/archive/v0.28.1.tar.gz",
+              "sha256": "0209badcba3c42a54c05d5dc7f59b2d97ecd25b7f957d5fde60b36c362fe2cc4"
+            },
+            {
+              "type": "file",
+              "url": "https://waf.io/waf-1.9.8",
+              "sha256": "167dc42bab6d5bd823b798af195420319cb5c9b571e00db7d83df2a0fe1f4dbf",
+              "dest-filename": "waf"
+            }
+          ],
+          "modules": [
+            {
+              "name": "ffmpeg",
+              "cleanup": [ "/include", "/lib/pkgconfig", "/share/ffmpeg/examples" ],
+              "config-opts": [
+                "--enable-shared",
+                "--disable-static",
+                "--enable-gnutls",
+                "--disable-doc",
+                "--disable-programs",
+                "--disable-encoders",
+                "--disable-muxers",
+                "--disable-devices"
+              ],
+              "sources": [
+                {
+                  "type": "git",
+                  "url": "https://github.com/FFmpeg/FFmpeg.git",
+                  "commit": "dd8351b1184b8054925c28ecc5fcb6dbbc177fad"
+                }
+              ]
+            },
+            {
+              "name": "libass",
+              "config-opts": [ "--disable-static" ],
+              "cleanup": [ "/lib/*.la", "/lib/pkgconfig", "/include" ],
+              "sources": [
+                {
+                  "type": "archive",
+                  "url": "https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.xz",
+                  "sha256": "881f2382af48aead75b7a0e02e65d88c5ebd369fe46bc77d9270a94aa8fd38a2"
+                }
+              ],
+              "modules": [
+                {
+                  "name": "fribidi",
+                  "cleanup": [ "/bin", "/include", "/share/man", "/lib/pkgconfig" ],
+                  "sources": [
+                    {
+                      "type": "archive",
+                      "url": "http://fribidi.org/download/fribidi-0.19.7.tar.bz2",
+                      "sha256": "08222a6212bbc2276a2d55c3bf370109ae4a35b689acbc66571ad2a670595a8e"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "uchardet",
+              "buildsystem": "cmake-ninja",
+              "config-opts": [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DBUILD_STATIC=0"
+              ],
+              "cleanup": [
+                "/bin",
+                "/include",
+                "/lib/pkgconfig",
+                "/share/man"
+              ],
+              "sources": [
+                {
+                  "type": "archive",
+                  "url": "https://www.freedesktop.org/software/uchardet/releases/uchardet-0.0.6.tar.xz",
+                  "sha256": "8351328cdfbcb2432e63938721dd781eb8c11ebc56e3a89d0f84576b96002c61"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

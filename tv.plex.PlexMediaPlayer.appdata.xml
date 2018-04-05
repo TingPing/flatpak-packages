@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>tv.plex.PlexMediaPlayer.desktop</id>
+  <provides>
+    <id>plex-media-player.desktop</id>
+  </provides>
+  <metadata_license>CC-BY-SA-3.0</metadata_license>
+  <project_license>GPL-2.0</project_license>
+  <updatecontact>tingping_at_fedoraproject.org</updatecontact>
+  <url type="homepage">https://plex.tv</url>
+  <developer_name>Plex, Inc.</developer_name>
+  <url type="bugtracker">https://github.com/plexinc/plex-media-player/issues</url>
+  <url type="donation">https://plex.tv/subscription/about</url>
+  <url type="help">https://github.com/plexinc/plex-media-player/wiki</url>
+  <name>Plex Media Player</name>
+  <summary>Next generation Plex Desktop/Embedded Client</summary>
+  <description>
+    <p>The Plex Media Player app is designed from the ground up to be fast, powerful, stable, and to bring you closer to your personal media than ever. It gives you both a beautiful HTPC experience and a slick desktop media player experience. Whether you are home or away, you can easily play any file type with the world’s most powerful playback engine. It’s the ultimate media player! With Plex Media Player running in a window, you can now use your mouse and keyboard as nature intended, and switching to the TV UI is as easy as going full-screen.</p>
+    <p>Use the awesome power of the mpv playback engine everywhere. Maybe you pine for stuff like Plex Media Player’s silky smooth playback, complex subtitle rendering, and lightning fast seeking on your desktop. Maybe you have a lower-powered NAS server that doesn’t like to transcode. Or maybe you’d just like to rock out to some FLAC while you work. Until today, your only option was to find some place to stash a little baby Media Player window and muddle through the TV UI to queue up your background music of choice.</p>
+ </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>http://i.imgur.com/0QuZ2kd.png</image>
+      <caption>Main desktop interface</caption>
+      <image type="source" width="1152" height="685">https://negativo17.org/appstream/plex-media-player-0.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Movie collections</caption>
+      <image type="source" width="1152" height="685">https://negativo17.org/appstream/plex-media-player-1.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>TV Shows browsing</caption>
+      <image type="source" width="1152" height="685">https://negativo17.org/appstream/plex-media-player-2.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Main TV interface for HTPC solutions</caption>
+      <image type="source" width="1280" height="720">https://negativo17.org/appstream/plex-media-player-3.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Browsing through Music in the TV interface</caption>
+      <image type="source" width="1280" height="720">https://negativo17.org/appstream/plex-media-player-4.png</image>
+    </screenshot>
+  </screenshots>
+</component>

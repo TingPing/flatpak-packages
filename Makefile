@@ -7,6 +7,9 @@ BUILD_CMD = $(BUILD_CMD_BASE) $<
 
 all: pithos gnome-mpv transmission-remote-gnome hexchat gnome-twitch irc-client
 
+plex: tv.plex.PlexMediaPlayer.json tv.plex.PlexMediaPlayer.desktop tv.plex.PlexMediaPlayer.appdata.xml
+	$(BUILD_CMD)
+
 pithos: io.github.Pithos.json
 	$(BUILD_CMD)
 
