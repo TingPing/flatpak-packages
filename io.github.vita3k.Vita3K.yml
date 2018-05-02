@@ -1,0 +1,44 @@
+id: io.github.vita3k.Vita3K
+runtime: org.freedesktop.Platform
+runtime-version: '1.6'
+sdk: org.freedesktop.Sdk
+command: vita3k
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --device=all
+modules:
+
+  - name: cmake
+    buildsystem: cmake-ninja
+    cleanup: ['*']
+    sources:
+      - type: archive
+        url: 'https://cmake.org/files/v3.10/cmake-3.10.2.tar.gz'
+        sha256: 80d0faad4ab56de07aa21a7fc692c88c4ce6156d42b0579c6962004a70a3218b
+
+  - name: unicorn
+    no-autogen: true
+    build-options:
+      env:
+        PREFIX: /app
+        LIBDIR: /app/lib
+    make-args: [unicorn]
+    cleanup: [/include, /lib/*.a, /lib/pkgconfig]
+    sources:
+      - type: archive
+        url: 'https://github.com/unicorn-engine/unicorn/archive/1.0.1.tar.gz'
+        sha256: 3a6a4f2b8c405ab009040ca43af8e4aa10ebe44d9c8b336aa36dc35df955017c
+
+  - name: vita3k
+    buildsystem: cmake-ninja
+    post-install:
+      - desktop-file-install --dir=/app/share/applications io.github.vita3k.Vita3K.desktop
+      - install -Dm644 src/emulator/Vita3K.png /app/share/icons/hicolor/1024x1024/apps/io.github.vita3k.Vita3K.png
+      - install vita3k /app/bin
+      - install -m644 --target-directory=/app/lib /usr/lib/sdk/gcc7/lib/libstdc++.so*
+    sources:
+      - type: git
+        url: 'https://github.com/Vita3K/Vita3K.git'
+      - type: file
+        path: io.github.vita3k.Vita3K.desktop

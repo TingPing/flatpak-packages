@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Vita3K
+Exec=vita3k
+Icon=io.github.vita3k.Vita3K
+Terminal=false
+Type=Application
+Categories=Emulator;
