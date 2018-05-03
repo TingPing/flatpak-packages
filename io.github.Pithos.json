@@ -1,7 +1,7 @@
 {
   "app-id": "io.github.Pithos",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "3.26",
+  "runtime-version": "3.28",
   "sdk": "org.gnome.Sdk",
   "command": "pithos",
   "finish-args": [
@@ -11,7 +11,6 @@
     "--socket=wayland",
     "--socket=pulseaudio",
 
-    "--env=SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
     "--env=GST_PLUGIN_PATH_1_0=/app/lib/gstreamer-1.0",
 
     "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
@@ -37,19 +36,20 @@
     "--own-name=org.mpris.MediaPlayer2.pithos"
   ],
   "modules": [
-    "libappindicator.json",
+    "shared-modules/libappindicator/libappindicator-gtk3-introspection-12.10.json",
+    "python3-pylast.json",
     {
       "name": "gst-plugins-bad",
-      "buildsystem": "simple",
-      "build-commands": [
-        "meson _build --prefix=/app --libdir=lib",
-        "ninja -C _build ext/faad/libgstfaad.so",
-        "install -Dm644 --target-directory=/app/lib/gstreamer-1.0 _build/ext/faad/libgstfaad.so"
+      "buildsystem": "meson",
+      "no-make-install": true,
+      "make-args": ["ext/faad/libgstfaad.so"],
+      "post-install": [
+        "install -Dm644 --target-directory=/app/lib/gstreamer-1.0 ext/faad/libgstfaad.so"
       ],
       "sources": [{
         "type": "archive",
-        "url": "http://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-1.12.2.tar.xz",
-        "sha256": "9c2c7edde4f59d74eb414e0701c55131f562e5c605a3ce9b091754f106c09e37"
+        "url": "https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-1.14.0.tar.xz",
+        "sha256": "ed5e2badb6f2858f60017b93334d91fe58a0e3f85ed2f37f2e931416fafb4f9f"
       }],
       "modules": [{
         "name": "faad",
@@ -59,8 +59,8 @@
         "sources": [
           {
             "type": "archive",
-            "url": "http://downloads.sourceforge.net/sourceforge/faac/faad2-2.8.1.tar.gz",
-            "sha256": "133270a9be0c9ab8fea18017703ab4a94f9eddbb45a8aa6a511a1469fa413591"
+            "url": "http://downloads.sourceforge.net/sourceforge/faac/faad2-2.8.8.tar.gz",
+            "sha256": "985c3fadb9789d2815e50f4ff714511c79c2710ac27a4aaaf5c0c2662141426d"
           },
           {
             "type": "script",
@@ -69,30 +69,6 @@
           }
         ]}
       ]
-    },
-    {
-      "name": "pylast",
-      "buildsystem": "simple",
-      "build-commands": [
-        "pip3 install --prefix=/app pylast-1.8.0-py3-none-any.whl"
-      ],
-      "sources": [{
-        "type": "file",
-        "url": "https://dl.tingping.se/mirror/pylast-1.8.0-py3-none-any.whl",
-        "sha256": "98ffacaba10ba8e123c750993a24396d058d3e21e4d4f1e93f0dd085956457d3"
-      }],
-      "modules": [{
-        "name": "six",
-        "buildsystem": "simple",
-        "build-commands": [
-          "pip3 install --prefix=/app six-1.10.0-py2.py3-none-any.whl"
-        ],
-        "sources": [{
-          "type": "file",
-          "url": "https://pypi.python.org/packages/c8/0a/b6723e1bc4c516cb687841499455a8505b44607ab535be01091c0f24f079/six-1.10.0-py2.py3-none-any.whl#md5=3ab558cf5d4f7a72611d59a81a315dc8",
-          "sha256": "0ff78c403d9bccf5a425a6d31a12aa6b47f1c21ca4dc2573a7e2f32a97335eb1"
-        }]
-      }]
     },
     {
       "name": "keybinder",
@@ -106,6 +82,7 @@
     {
       "name": "pithos",
       "buildsystem": "meson",
+      "cleanup": ["/share/man"],
       "sources": [
         {
           "type": "git",
