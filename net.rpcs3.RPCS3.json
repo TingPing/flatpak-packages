@@ -1,7 +1,7 @@
 {
   "app-id": "net.rpcs3.RPCS3",
   "runtime": "org.kde.Platform",
-  "runtime-version": "5.10",
+  "runtime-version": "5.11",
   "sdk": "org.kde.Sdk",
   "command": "rpcs3",
   "rename-desktop-file": "rpcs3.desktop",
@@ -20,7 +20,8 @@
       "config-opts": [
         "-DCMAKE_BUILD_TYPE=Release",
         "-DUSE_ALSA=OFF",
-        "-DUSE_SYSTEM_LIBPNG=ON"
+        "-DUSE_SYSTEM_LIBPNG=ON",
+        "-DUSE_NATIVE_INSTRUCTIONS=OFF"
       ],
       "post-install": [
         "install -Dm644 ../net.rpcs3.RPCS3.appdata.xml /app/share/appdata/net.rpcs3.RPCS3.appdata.xml"
@@ -38,7 +39,7 @@
       ],
       "modules": [
         "shared-modules/glu/glu-9.0.0.json",
-        "shared-modules/glew/glew-2.0.0.json",
+        "shared-modules/glew/glew.json",
         "shared-modules/udev/udev-175.json",
         {
           "name": "openal",
