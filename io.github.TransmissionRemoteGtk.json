@@ -1,7 +1,7 @@
 {
   "app-id": "io.github.TransmissionRemoteGtk",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "3.26",
+  "runtime-version": "3.28",
   "sdk": "org.gnome.Sdk",
   "command": "transmission-remote-gtk",
   "rename-desktop-file": "transmission-remote-gtk.desktop",

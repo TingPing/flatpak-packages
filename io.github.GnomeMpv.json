@@ -1,7 +1,7 @@
 {
   "app-id": "io.github.GnomeMpv",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "3.26",
+  "runtime-version": "3.28",
   "sdk": "org.gnome.Sdk",
   "command": "gnome-mpv",
   "finish-args": [
@@ -20,7 +20,6 @@
       "--filesystem=~/.config/dconf:ro",
       "--talk-name=ca.desrt.dconf",
       "--own-name=org.mpris.MediaPlayer2.GnomeMpv.*",
-      "--env=SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
       "--env=LC_NUMERIC=C"
   ],
   "modules": [
