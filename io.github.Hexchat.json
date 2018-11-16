@@ -1,7 +1,7 @@
 {
   "app-id": "io.github.Hexchat",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "3.28",
+  "runtime-version": "3.30",
   "sdk": "org.gnome.Sdk",
   "command": "hexchat",
   "rename-icon": "hexchat",
@@ -9,9 +9,23 @@
     "--share=ipc",
     "--socket=x11",
     "--socket=session-bus",
-    "--share=network"
+    "--share=network",
+    "--socket=pulseaudio",
+    "--filesystem=xdg-download"
   ],
+  "add-extensions": {
+    "io.github.Hexchat.Plugin": {
+      "version": "18.08",
+      "directory": "extensions",
+      "add-ld-path": "lib",
+      "merge-dirs": "lib/hexchat/plugins",
+      "subdirectories": true,
+      "no-autodownload": true,
+      "autodelete": true
+    }
+  },
   "modules": [
+    "shared-modules/gtk2/gtk2.json",
     {
       "name": "hexchat",
       "buildsystem": "meson",
@@ -19,12 +33,20 @@
       "config-opts": [
         "--buildtype=release",
         "-Ddbus-service-use-appid=true",
-        "-Dwith-perl=false"
+        "-Dwith-perl=false",
+        "-Dwith-python=false"
+      ],
+      "post-install": [
+        "install -d /app/extensions"
       ],
       "sources": [
         {
           "type": "git",
           "url": "https://github.com/hexchat/hexchat.git"
+        },
+        {
+          "type": "patch",
+          "path": "Load-plugins-from-Flatpak-extensions.patch"
         }
       ],
       "modules": [
@@ -33,7 +55,6 @@
           "name": "lgi",
           "no-autogen": true,
           "build-options": {
-            "cflags": "-O2",
             "env": {
               "LUA_CFLAGS": "-I/app/include/luajit-2.1"
             }
