@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application>
-  <id type="desktop">info.cemu.Cemu.desktop</id>
+<component type="desktop">
+  <id>info.cemu.Cemu</id>
+  <launchable type="desktop-id">info.cemu.Cemu.desktop</launchable>
   <name>Cemu</name>
+  <developer_name>Cemu</developer_name>
   <summary>A Nintendo Wii-U emulator</summary>
-  <categories>
-    <category>Game</category>
-    <category>Emulator</category>
-  </categories>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LicenseRef-proprietary</project_license>
   <url type="homepage">http://cemu.info</url>
+  <url type="donation">http://cemu.info/donate.html</url>
   <icon type="remote" height="375" width="375">http://compat.cemu.info/w/CemuLogo2.png</icon>
-</application>
+</component>

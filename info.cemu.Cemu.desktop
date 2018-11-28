@@ -2,5 +2,7 @@
 Type=Application
 Name=Cemu
 Comment=Nintendo Wii-U emulator
+#Icon=info.cemu.Cemu.desktop
 Exec=cemu
 Terminal=false
+Categories=Game;Emulator;
