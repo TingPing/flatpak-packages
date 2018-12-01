@@ -37,6 +37,9 @@ citra: org.citra_emu.Citra.json
 lutris: net.lutris.Lutris.json
 	$(BUILD_CMD)
 
+wxedid: net.sourceforge.wxEDID.yml
+	$(BUILD_CMD)
+
 transmission-remote-gnome:
 	$(BUILD_CMD_BASE) --from-git=https://github.com/TingPing/transmission-remote-gnome.git dist/flatpak/se.tingping.Trg.json
 

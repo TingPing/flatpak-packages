@@ -1,0 +1,52 @@
+id: net.sourceforge.wxEDID
+runtime: org.freedesktop.Platform
+runtime-version: '18.08'
+sdk: org.freedesktop.Sdk
+command: wxEDID
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --filesystem=host
+cleanup:
+  - /include
+  - /lib/pkgconfig
+modules:
+  - name: wxWidgets
+    rm-configure: true
+    config-opts:
+      - --with-libpng
+      - --with-zlib
+      - --disable-sdltest
+      - --disable-webkit
+      - --disable-webview
+      - --disable-webviewwebkit
+      - --disable-ribbon
+      - --disable-propgrid
+      - --disable-richtext
+      - --with-expat=builtin
+      - --with-libiconv=/usr
+    cleanup:
+      - /bin
+      - /lib/wx
+      - /share/bakefile
+      - /share/aclocal
+    sources:
+      - type: archive
+        url: https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/wxWidgets-3.1.1.tar.bz2
+        sha256: c925dfe17e8f8b09eb7ea9bfdcfcc13696a3e14e92750effd839f5e10726159e
+      - type: script
+        commands:
+          - cp -p /usr/share/automake-*/config.{sub,guess} .
+          - autoconf -f -B build/autoconf_prepend-include
+
+  - name: wxEDID
+    build-options:
+      cflags: ''
+    post-install:
+      - desktop-file-install --dir=/app/share/applications net.sourceforge.wxEDID.desktop
+    sources:
+      - type: archive
+        url: https://sourceforge.net/projects/wxedid/files/wxedid-0.0.16.tar.gz
+        sha256: 23e60007d718fcb385663dbbdb288f8a1e9384c6905f471ae1355a469d17b743
+      - type: file
+        path: net.sourceforge.wxEDID.desktop

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.1
+Type=Application
+Name=wxEDID
+GenericName=EDID Editor
+Categories=Utility;
+Exec=wxEDID
+Terminal=false
